@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { exportPDFFromElement } from '@/lib/pdfExport';
 import { ResultsInfographic } from '@/components/ResultsInfographic';
-import { RemediationRoadmap } from '@/components/RemediationRoadmap';
+
 
 export function ResultsDashboard() {
   const { answers, setIsComplete } = useQuestionnaire();
@@ -247,8 +247,6 @@ export function ResultsDashboard() {
           </CardContent>
         </Card>
 
-        {/* Remediation Roadmap */}
-        <RemediationRoadmap results={results} />
 
         {/* Infographic */}
         <ResultsInfographic results={results} />
