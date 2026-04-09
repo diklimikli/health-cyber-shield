@@ -5,9 +5,10 @@ import { scoringWeights, maturityLevels, redFlags, evidenceChecklist, questions 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { exportExecutivePDF, exportDetailedPDF } from '@/lib/pdfExport';
 
 export function ResultsDashboard() {
   const { answers, setIsComplete } = useQuestionnaire();
