@@ -5,9 +5,10 @@ import { scoringWeights, maturityLevels, redFlags, evidenceChecklist, questions 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { exportExecutivePDF, exportDetailedPDF } from '@/lib/pdfExport';
 
 export function ResultsDashboard() {
   const { answers, setIsComplete } = useQuestionnaire();
@@ -26,8 +27,16 @@ export function ResultsDashboard() {
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-2xl font-bold">Értékelési Eredmények</h1>
         <Button variant="outline" onClick={() => setIsComplete(false)}>
-          <ArrowLeft className="w-4 h-4 mr-2" /> Vissza a kérdőívhez
+          <ArrowLeft className="w-4 h-4 mr-2" /> Vissza
         </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => exportExecutivePDF(results)}>
+            <Download className="w-4 h-4 mr-2" /> Vezetői PDF
+          </Button>
+          <Button variant="default" onClick={() => exportDetailedPDF(results)}>
+            <Download className="w-4 h-4 mr-2" /> Részletes PDF
+          </Button>
+        </div>
       </div>
 
       {/* Executive Summary */}
