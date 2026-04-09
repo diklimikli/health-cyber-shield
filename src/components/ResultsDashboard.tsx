@@ -9,6 +9,7 @@ import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowL
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { exportExecutivePDF, exportDetailedPDF } from '@/lib/pdfExport';
+import { ResultsInfographic } from '@/components/ResultsInfographic';
 
 export function ResultsDashboard() {
   const { answers, setIsComplete } = useQuestionnaire();
@@ -233,6 +234,9 @@ export function ResultsDashboard() {
           </ul>
         </CardContent>
       </Card>
+
+      {/* Infographic */}
+      <ResultsInfographic results={results} />
     </div>
   );
 }
