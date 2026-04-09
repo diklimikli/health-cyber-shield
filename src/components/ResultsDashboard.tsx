@@ -234,6 +234,9 @@ export function ResultsDashboard() {
           </ul>
         </CardContent>
       </Card>
+
+      {/* Infographic */}
+      <ResultsInfographic results={results} />
     </div>
   );
 }
