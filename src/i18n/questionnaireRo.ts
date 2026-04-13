@@ -385,7 +385,6 @@ export const optionTranslationsRo: Record<string, string> = {
   'Igen, mind a 4 lefedett': 'Da, toate cele 4 acoperite',
   'Részleges (1-3)': 'Parțial (1-3)',
   'Nincs specifikus use-case': 'Nu există use-case specific',
-  '4 órán belül': 'În 4 ore',
   '24 órán belül': 'În 24 de ore',
   '48 órán belül': 'În 48 de ore',
   '1 héten belül': 'Într-o săptămână',
