@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, ReactNode } from 'react';
 import { type AnswerValue, type Answers } from '@/lib/scoringEngine';
+import { type Language } from '@/i18n/LanguageContext';
 
 interface QuestionnaireContextType {
   answers: Answers;

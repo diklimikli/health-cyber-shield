@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { QuestionnaireProvider, useQuestionnaire } from '@/contexts/QuestionnaireContext';
+import { LanguageProvider } from '@/i18n/LanguageContext';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { t } from '@/i18n/translations';
+import { sectionTitleRo, sectionDescRo } from '@/i18n/questionnaireRo';
 import { sections, questions } from '@/data/questionnaireData';
 import { SectionNav } from '@/components/SectionNav';
 import { QuestionCard } from '@/components/QuestionCard';
 import { ResultsDashboard } from '@/components/ResultsDashboard';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -12,6 +17,7 @@ import { cn } from '@/lib/utils';
 
 function QuestionnaireContent() {
   const { currentSection, setCurrentSection, mode, setMode, answers, isComplete, setIsComplete } = useQuestionnaire();
+  const { language } = useLanguage();
 
   if (isComplete) {
     return <ResultsDashboard />;
@@ -29,6 +35,9 @@ function QuestionnaireContent() {
     ? sectionQuestions.filter(q => q.riskWeight === 'Critical' || q.isKillerQuestion)
     : sectionQuestions;
 
+  const sectionTitle = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : section.titleHu;
+  const sectionDesc = language === 'ro' ? (sectionDescRo[section.description] || section.description) : section.description;
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -36,11 +45,12 @@ function QuestionnaireContent() {
         <div className="flex items-center gap-3">
           <Shield className="w-8 h-8 text-primary" />
           <div>
-            <h1 className="font-heading text-xl font-bold leading-tight">Kórházi Kiberbiztonsági Értékelés</h1>
-            <p className="text-xs text-muted-foreground">IT & Cybersecurity Audit Kérdőív • NIS2 / DNSC</p>
+            <h1 className="font-heading text-xl font-bold leading-tight">{t('app.title', language)}</h1>
+            <p className="text-xs text-muted-foreground">{t('app.subtitle', language)}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <LanguageSwitcher />
           <div className="flex gap-1 bg-secondary rounded-md p-0.5">
             <button
               onClick={() => setMode('executive')}
@@ -48,7 +58,7 @@ function QuestionnaireContent() {
                 mode === 'executive' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              <Zap className="w-3 h-3 inline mr-1" />Vezetői
+              <Zap className="w-3 h-3 inline mr-1" />{t('mode.executive', language)}
             </button>
             <button
               onClick={() => setMode('detailed')}
@@ -56,11 +66,11 @@ function QuestionnaireContent() {
                 mode === 'detailed' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              <FileText className="w-3 h-3 inline mr-1" />Részletes Audit
+              <FileText className="w-3 h-3 inline mr-1" />{t('mode.detailed', language)}
             </button>
           </div>
           <Button onClick={() => setIsComplete(true)} className="gap-1.5">
-            <BarChart3 className="w-4 h-4" /> Eredmények
+            <BarChart3 className="w-4 h-4" /> {t('btn.results', language)}
           </Button>
         </div>
       </div>
@@ -78,11 +88,11 @@ function QuestionnaireContent() {
       <div className="bg-card border rounded-lg p-4">
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="font-heading">{currentSection + 1}/{sections.length}</Badge>
-          <h2 className="font-heading text-base font-bold">{section.titleHu}</h2>
+          <h2 className="font-heading text-base font-bold">{sectionTitle}</h2>
         </div>
-        <p className="text-xs text-muted-foreground mt-1 ml-[52px]">{section.description}</p>
+        <p className="text-xs text-muted-foreground mt-1 ml-[52px]">{sectionDesc}</p>
         <p className="text-xs text-muted-foreground mt-1 ml-[52px]">
-          {mode === 'executive' ? `${displayQuestions.length} kritikus kérdés` : `${displayQuestions.length} kérdés`}
+          {mode === 'executive' ? `${displayQuestions.length} ${t('mode.criticalQ', language)}` : `${displayQuestions.length} ${t('mode.questions', language)}`}
         </p>
       </div>
 
@@ -100,15 +110,15 @@ function QuestionnaireContent() {
           onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
           disabled={currentSection === 0}
         >
-          <ChevronLeft className="w-4 h-4 mr-1" /> Előző szekció
+          <ChevronLeft className="w-4 h-4 mr-1" /> {t('nav.prevSection', language)}
         </Button>
         {currentSection < sections.length - 1 ? (
           <Button onClick={() => setCurrentSection(currentSection + 1)}>
-            Következő szekció <ChevronRight className="w-4 h-4 ml-1" />
+            {t('nav.nextSection', language)} <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         ) : (
           <Button onClick={() => setIsComplete(true)} className="gap-1.5">
-            <BarChart3 className="w-4 h-4" /> Eredmények megtekintése
+            <BarChart3 className="w-4 h-4" /> {t('btn.viewResults', language)}
           </Button>
         )}
       </div>
@@ -118,13 +128,15 @@ function QuestionnaireContent() {
 
 const Index = () => {
   return (
-    <QuestionnaireProvider>
-      <div className="min-h-screen bg-background">
-        <div className="container max-w-5xl mx-auto py-6 px-4">
-          <QuestionnaireContent />
+    <LanguageProvider>
+      <QuestionnaireProvider>
+        <div className="min-h-screen bg-background">
+          <div className="container max-w-5xl mx-auto py-6 px-4">
+            <QuestionnaireContent />
+          </div>
         </div>
-      </div>
-    </QuestionnaireProvider>
+      </QuestionnaireProvider>
+    </LanguageProvider>
   );
 };
 
