@@ -3,13 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, PieChart, Pie, Legend } from 'recharts';
 import { BarChart3 } from 'lucide-react';
 import type { AssessmentResult } from '@/lib/scoringEngine';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { t } from '@/i18n/translations';
+import { domainShortRo, domainLabelRo, maturityLabelRo } from '@/i18n/questionnaireRo';
 import { cn } from '@/lib/utils';
 
 interface Props {
   results: AssessmentResult;
 }
 
-const DOMAIN_SHORT: Record<string, string> = {
+const DOMAIN_SHORT_HU: Record<string, string> = {
   vendor_dependency: 'Beszállító',
   access_control: 'Hozzáférés',
   backup_dr: 'Backup/DR',
@@ -38,67 +41,68 @@ function getScoreColor(pct: number): string {
 }
 
 export function ResultsInfographic({ results }: Props) {
+  const { language } = useLanguage();
+  const domainShort = language === 'ro' ? domainShortRo : DOMAIN_SHORT_HU;
+
   const radarData = useMemo(() =>
     results.domainScores.map(ds => ({
-      domain: DOMAIN_SHORT[ds.domain] || ds.domain,
+      domain: domainShort[ds.domain] || ds.domain,
       score: ds.percentage,
       fullMark: 100,
-    })), [results.domainScores]);
+    })), [results.domainScores, language]);
 
   const barData = useMemo(() =>
     results.domainScores.map(ds => ({
-      name: DOMAIN_SHORT[ds.domain] || ds.domain,
+      name: domainShort[ds.domain] || ds.domain,
       pont: ds.normalizedScore,
       max: ds.maxPoints,
       pct: ds.percentage,
-    })), [results.domainScores]);
+    })), [results.domainScores, language]);
 
   const pieData = useMemo(() => {
     const answered = results.answeredCount;
     const unanswered = results.totalQuestions - answered;
     return [
-      { name: 'Megválaszolt', value: answered },
-      { name: 'Nem válaszolt', value: unanswered },
+      { name: t('infographic.answered', language), value: answered },
+      { name: t('infographic.unanswered', language), value: unanswered },
     ];
-  }, [results]);
+  }, [results, language]);
 
   const maturityGauge = useMemo(() => {
-    const segments = [
-      { name: 'Kritikus', range: 25, color: '#ef4444' },
-      { name: 'Jelentős', range: 25, color: '#f97316' },
-      { name: 'Mérsékelt', range: 20, color: '#eab308' },
-      { name: 'Elfogadható', range: 15, color: '#22c55e' },
-      { name: 'Jó', range: 15, color: '#16a34a' },
-    ];
-    return segments.map(s => ({ ...s, value: s.range }));
-  }, []);
+    const segmentsHu = ['Kritikus', 'Jelentős', 'Mérsékelt', 'Elfogadható', 'Jó'];
+    const segmentsRo = ['Critic', 'Semnificativ', 'Moderat', 'Acceptabil', 'Bun'];
+    const segs = language === 'ro' ? segmentsRo : segmentsHu;
+    const ranges = [25, 25, 20, 15, 15];
+    const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#16a34a'];
+    return segs.map((name, i) => ({ name, range: ranges[i], color: colors[i], value: ranges[i] }));
+  }, [language]);
+
+  const maturityLabel = language === 'ro' ? (maturityLabelRo[results.maturityLevel.label] || results.maturityLevel.label) : results.maturityLevel.label;
 
   return (
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="font-heading text-lg flex items-center gap-2">
-          <BarChart3 className="w-5 h-5" /> Vizuális Infografika
+          <BarChart3 className="w-5 h-5" /> {t('infographic.title', language)}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
         {/* Row 1: Radar + Score Gauge */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Radar Chart */}
           <div>
-            <h3 className="text-sm font-medium text-center mb-2">Területi Lefedettség</h3>
+            <h3 className="text-sm font-medium text-center mb-2">{t('infographic.coverage', language)}</h3>
             <ResponsiveContainer width="100%" height={280}>
               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
                 <PolarGrid stroke="hsl(var(--border))" />
                 <PolarAngleAxis dataKey="domain" tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 9 }} />
-                <Radar name="Pontszám %" dataKey="score" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.25} strokeWidth={2} />
+                <Radar name={t('infographic.scorePct', language)} dataKey="score" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.25} strokeWidth={2} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Maturity Pie + Completion */}
           <div className="flex flex-col items-center gap-4">
-            <h3 className="text-sm font-medium text-center">Kitöltöttség</h3>
+            <h3 className="text-sm font-medium text-center">{t('infographic.completion', language)}</h3>
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" label={({ name, value }) => `${name}: ${value}`}>
@@ -112,14 +116,14 @@ export function ResultsInfographic({ results }: Props) {
               <div className={cn('text-3xl font-heading font-bold')} style={{ color: getScoreColor(results.percentage) }}>
                 {results.totalScore} / {results.maxScore}
               </div>
-              <div className="text-xs text-muted-foreground mt-1">Összesített pontszám</div>
+              <div className="text-xs text-muted-foreground mt-1">{t('infographic.totalScore', language)}</div>
             </div>
           </div>
         </div>
 
         {/* Row 2: Bar chart */}
         <div>
-          <h3 className="text-sm font-medium text-center mb-2">Területi Pontszámok</h3>
+          <h3 className="text-sm font-medium text-center mb-2">{t('infographic.domainScores', language)}</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={barData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -133,8 +137,8 @@ export function ResultsInfographic({ results }: Props) {
                   fontSize: 12,
                 }}
                 formatter={(value: number, name: string) => {
-                  if (name === 'pont') return [`${value} pt`, 'Pontszám'];
-                  return [`${value} pt`, 'Maximum'];
+                  if (name === 'pont') return [`${value} pt`, t('infographic.score', language)];
+                  return [`${value} pt`, t('infographic.maximum', language)];
                 }}
               />
               <Bar dataKey="max" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} name="max" />
@@ -149,11 +153,11 @@ export function ResultsInfographic({ results }: Props) {
 
         {/* Row 3: Risk Heat Strips */}
         <div>
-          <h3 className="text-sm font-medium mb-3">Kockázati Hőtérkép</h3>
+          <h3 className="text-sm font-medium mb-3">{t('infographic.riskHeatmap', language)}</h3>
           <div className="space-y-2">
             {results.domainScores.map(ds => (
               <div key={ds.domain} className="flex items-center gap-3">
-                <span className="text-xs w-20 text-right text-muted-foreground truncate">{DOMAIN_SHORT[ds.domain]}</span>
+                <span className="text-xs w-20 text-right text-muted-foreground truncate">{domainShort[ds.domain]}</span>
                 <div className="flex-1 h-6 rounded-full bg-muted overflow-hidden relative">
                   <div
                     className="h-full rounded-full transition-all duration-700"
@@ -175,9 +179,9 @@ export function ResultsInfographic({ results }: Props) {
         <div className="grid grid-cols-3 gap-4 pt-2 border-t border-border">
           <div className="text-center">
             <div className="text-2xl font-heading font-bold" style={{ color: getScoreColor(results.percentage) }}>
-              {results.maturityLevel.label}
+              {maturityLabel}
             </div>
-            <div className="text-[10px] text-muted-foreground">Érettségi szint</div>
+            <div className="text-[10px] text-muted-foreground">{t('infographic.maturityLevel', language)}</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-heading font-bold text-destructive">{results.triggeredRedFlags.length}</div>
@@ -185,7 +189,7 @@ export function ResultsInfographic({ results }: Props) {
           </div>
           <div className="text-center">
             <div className="text-2xl font-heading font-bold">{results.quickWins.length}</div>
-            <div className="text-[10px] text-muted-foreground">Gyors lépés</div>
+            <div className="text-[10px] text-muted-foreground">{t('infographic.quickSteps', language)}</div>
           </div>
         </div>
       </CardContent>

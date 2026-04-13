@@ -1,5 +1,8 @@
 import { type Question as QuestionType } from '@/data/questionnaireData';
 import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { t } from '@/i18n/translations';
+import { questionTextRo, questionPurposeRo, questionPoorAnswerRo, questionStrongAnswerRo, questionExpectedEvidenceRo, optionTranslationsRo } from '@/i18n/questionnaireRo';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
@@ -12,6 +15,7 @@ interface Props {
 
 export function QuestionCard({ question, index }: Props) {
   const { answers, setAnswer, mode } = useQuestionnaire();
+  const { language } = useLanguage();
   const answer = answers[question.id];
 
   const riskColors: Record<string, string> = {
@@ -21,6 +25,14 @@ export function QuestionCard({ question, index }: Props) {
     Critical: 'bg-destructive/20 text-destructive',
   };
 
+  const qText = language === 'ro' ? (questionTextRo[question.id] || question.text) : question.text;
+  const qPurpose = language === 'ro' ? (questionPurposeRo[question.id] || question.purpose) : question.purpose;
+  const qPoor = language === 'ro' ? (questionPoorAnswerRo[question.id] || question.poorAnswer) : question.poorAnswer;
+  const qStrong = language === 'ro' ? (questionStrongAnswerRo[question.id] || question.strongAnswer) : question.strongAnswer;
+  const qEvidence = language === 'ro' ? (questionExpectedEvidenceRo[question.id] || question.expectedEvidence) : question.expectedEvidence;
+
+  const trOpt = (opt: string) => language === 'ro' ? (optionTranslationsRo[opt] || opt) : opt;
+
   return (
     <div className={cn(
       'border rounded-lg p-5 transition-all',
@@ -29,7 +41,7 @@ export function QuestionCard({ question, index }: Props) {
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-start gap-3">
           <span className="font-heading text-xs text-muted-foreground mt-1 min-w-[50px]">{question.id}</span>
-          <h3 className="text-sm font-medium leading-relaxed">{question.text}</h3>
+          <h3 className="text-sm font-medium leading-relaxed">{qText}</h3>
         </div>
         <div className="flex gap-1.5 flex-shrink-0">
           <Badge variant="outline" className={cn('text-[10px]', riskColors[question.riskWeight])}>
@@ -47,7 +59,7 @@ export function QuestionCard({ question, index }: Props) {
         <div className="mb-3 pl-[62px]">
           <p className="text-xs text-muted-foreground flex items-center gap-1.5">
             <Info className="w-3 h-3 flex-shrink-0" />
-            <span className="italic">{question.purpose}</span>
+            <span className="italic">{qPurpose}</span>
           </p>
         </div>
       )}
@@ -66,7 +78,7 @@ export function QuestionCard({ question, index }: Props) {
                     : 'bg-card border-border text-foreground hover:bg-muted'
                 )}
               >
-                {opt === 'yes' ? 'Igen' : 'Nem'}
+                {opt === 'yes' ? t('answer.yes', language) : t('answer.no', language)}
               </button>
             ))}
           </div>
@@ -98,7 +110,7 @@ export function QuestionCard({ question, index }: Props) {
                       : 'bg-card border-border text-foreground hover:bg-muted'
                   )}
                 >
-                  {opt}
+                  {trOpt(opt)}
                 </button>
               );
             })}
@@ -121,7 +133,7 @@ export function QuestionCard({ question, index }: Props) {
                 {n}
               </button>
             ))}
-            <span className="text-xs text-muted-foreground ml-2">1 = leggyengébb, 5 = legerősebb</span>
+            <span className="text-xs text-muted-foreground ml-2">{t('scale.hint', language)}</span>
           </div>
         )}
 
@@ -130,13 +142,13 @@ export function QuestionCard({ question, index }: Props) {
             <Textarea
               value={typeof answer === 'string' ? answer : ''}
               onChange={e => setAnswer(question.id, e.target.value)}
-              placeholder="Írja be a választ..."
+              placeholder={t('input.placeholder', language)}
               className="text-sm min-h-[80px]"
             />
             {question.type === 'evidence' && (
               <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
                 <FileText className="w-3 h-3" />
-                Elvárt bizonyíték: {question.expectedEvidence}
+                {t('evidence.expected', language)}: {qEvidence}
               </p>
             )}
           </div>
@@ -145,12 +157,12 @@ export function QuestionCard({ question, index }: Props) {
         {mode === 'detailed' && (
           <div className="mt-3 grid grid-cols-2 gap-3 text-xs">
             <div className="p-2 rounded bg-destructive/5 border border-destructive/10">
-              <span className="font-medium text-destructive">Gyenge válasz:</span>
-              <p className="text-muted-foreground mt-0.5">{question.poorAnswer}</p>
+              <span className="font-medium text-destructive">{t('answer.poor', language)}</span>
+              <p className="text-muted-foreground mt-0.5">{qPoor}</p>
             </div>
             <div className="p-2 rounded bg-success/10 border border-success/20">
-              <span className="font-medium text-success">Erős válasz:</span>
-              <p className="text-muted-foreground mt-0.5">{question.strongAnswer}</p>
+              <span className="font-medium text-success">{t('answer.strong', language)}</span>
+              <p className="text-muted-foreground mt-0.5">{qStrong}</p>
             </div>
           </div>
         )}
