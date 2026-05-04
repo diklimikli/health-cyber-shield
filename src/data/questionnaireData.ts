@@ -752,7 +752,7 @@ export const evidenceChecklist = [
   'Üzleti hatáselemzés (BIA)',
   'Üzletmenet-folytonossági terv (BCP)',
   'Beszállítói szerződések és SLA-k',
-  'RACI mátrix (Beszállító A / Beszállító B / belső IT)',
+  'RACI mátrix (kulcsbeszállítók / belső IT)',
   'VPN konfiguráció és hozzáférési listák',
   'MFA konfiguráció bizonyíték',
   'Active Directory csoport tagság export (Domain Admins, Enterprise Admins)',
