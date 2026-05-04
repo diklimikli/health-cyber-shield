@@ -492,7 +492,7 @@ export const evidenceChecklistRo: string[] = [
   'Analiză impact afacere (BIA)',
   'Plan de continuitate a afacerii (BCP)',
   'Contracte furnizori și SLA-uri',
-  'Matrice RACI (Furnizor A / Furnizor B / IT intern)',
+  'Matrice RACI (furnizori cheie / IT intern)',
   'Configurație VPN și liste de acces',
   'Dovadă configurație MFA',
   'Export membru grup Active Directory (Domain Admins, Enterprise Admins)',
