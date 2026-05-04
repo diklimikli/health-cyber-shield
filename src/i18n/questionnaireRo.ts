@@ -528,7 +528,7 @@ export const evidenceChecklistRo: string[] = [
 // Quick wins translations
 export const quickWinsRo: Record<string, string> = {
   'MFA bevezetése minden beszállítói hozzáférésre': 'Implementarea MFA pentru tot accesul furnizorilor',
-  'RACI mátrix elkészítése Furnizor A / Furnizor B között': 'Realizarea matricei RACI între Furnizor A / Furnizor B',
+  'RACI mátrix elkészítése a kulcsbeszállítók között': 'Realizarea matricei RACI între furnizorii cheie',
   'P1/P2/P3 súlyossági besorolási modell létrehozása': 'Crearea modelului de clasificare severitate P1/P2/P3',
   'Ransomware recovery runbook készítése': 'Realizarea ransomware recovery runbook',
   'SOC naplóforrás leltár elkészítése': 'Realizarea inventarului surselor de jurnale SOC',
