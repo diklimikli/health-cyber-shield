@@ -296,7 +296,7 @@ export const questions: Question[] = [
   // === SECTION 6: Network Segmentation ===
   {
     id: 'NET-01', sectionId: 'network',
-    text: 'A hálózat szegmentált-e a klinikai / adminisztratív / beszállítói / infrastruktúra zónák között?',
+    text: 'A hálózat szegmentált-e a felhasználói / adminisztratív / beszállítói / infrastruktúra / OT zónák között?',
     purpose: 'Hálózati szegmentáció és laterális mozgás elleni védelem felmérése',
     type: 'multiple', options: ['Igen, teljes szegmentáció', 'Részleges szegmentáció', 'Nincs szegmentáció', 'Nem tudjuk'],
     expectedEvidence: 'Hálózati rajz, VLAN konfiguráció, tűzfalszabályok',
@@ -307,8 +307,8 @@ export const questions: Question[] = [
   },
   {
     id: 'NET-02', sectionId: 'network',
-    text: 'A orvostechnikai eszközök (medical devices) külön hálózati szegmensben vannak?',
-    purpose: 'Orvostechnikai eszközök hálózati izolációjának felmérése',
+    text: 'A speciális vagy operatív technológiai (OT/IoT) eszközök külön hálózati szegmensben vannak?',
+    purpose: 'Speciális eszközök hálózati izolációjának felmérése',
     type: 'yesno', expectedEvidence: 'Hálózati rajz, VLAN konfiguráció',
     riskWeight: 'High', riskDomain: 'endpoint_security',
     poorAnswer: 'Nem, közös hálózaton vannak', strongAnswer: 'Igen, dedikált szegmensben vannak',
