@@ -34,15 +34,15 @@ export const sectionDescRo: Record<string, string> = {
 // Question text translations keyed by question ID
 export const questionTextRo: Record<string, string> = {
   'GEN-01': 'Care sunt sistemele IT critice ale organizației din punct de vedere al continuității afacerii? (ex. ERP, CRM, baze de date centrale, sisteme specifice domeniului)',
-  'GEN-02': 'Ce se întâmplă dacă principalul furnizor IT (Furnizor A) nu este disponibil timp de 24-48 de ore? Ce sisteme continuă să funcționeze și care se opresc?',
+  'GEN-02': 'Ce se întâmplă dacă principalul furnizor IT nu este disponibil timp de 24-48 de ore? Ce sisteme continuă să funcționeze și care se opresc?',
   'GEN-03': 'Câte servere și endpoint-uri sunt în rețeaua organizației?',
   'GEN-04': 'Ce sisteme de operare rulează pe servere și endpoint-uri? Există sisteme end-of-life (EOL)?',
-  'VEN-01': 'Ce activități realizează Furnizor A? (administrare servere, backup, restaurare, administrare SQL, actualizare OS, admin domeniu, monitorizare)',
-  'VEN-02': 'Există personal IT intern care ar putea asigura operarea de bază a sistemelor critice fără Furnizor A?',
-  'VEN-03': 'Furnizor A este un single point of failure (punct unic de eșec) în funcționarea IT a organizației?',
+  'VEN-01': 'Ce activități realizează principalul furnizor IT? (administrare servere, backup, restaurare, administrare SQL, actualizare OS, admin domeniu, monitorizare)',
+  'VEN-02': 'Există personal IT intern care ar putea asigura operarea de bază a sistemelor critice fără principalul furnizor IT?',
+  'VEN-03': 'Principalul furnizor IT este un single point of failure (punct unic de eșec) în funcționarea IT a organizației?',
   'VEN-04': 'Există o evaluare documentată a riscului de vendor lock-in?',
-  'VEN-05': 'Cu ce frecvență se efectuează revizuirea / auditul activității Furnizor A?',
-  'VPN-01': 'Ce furnizori au acces VPN la rețeaua organizației? (Furnizor A, Furnizor B, alții)',
+  'VEN-05': 'Cu ce frecvență se efectuează revizuirea / auditul activității principalului furnizor IT?',
+  'VPN-01': 'Ce furnizori au acces VPN la rețeaua organizației? (principalul furnizor IT, furnizorul SOC, alții)',
   'VPN-02': 'Se utilizează autentificarea multi-factor (MFA) pentru accesul VPN al furnizorilor?',
   'VPN-03': 'Conturile de acces ale furnizorilor sunt nominale (named account) sau se folosesc conturi partajate?',
   'VPN-04': 'Accesul VPN este bazat pe PSK (Pre-Shared Key) sau XAUTH?',
@@ -66,7 +66,7 @@ export const questionTextRo: Record<string, string> = {
   'BCK-06': 'Când a fost ultimul test de restaurare a bazei de date SQL?',
   'BCK-07': 'Au fost definite obiective RTO (Recovery Time Objective) și RPO (Recovery Point Objective)?',
   'BCK-08': 'Există un ransomware recovery runbook (plan de recuperare)?',
-  'SOC-01': 'Ce surse de jurnale (log source) colectează exact Furnizor B?',
+  'SOC-01': 'Ce surse de jurnale (log source) colectează exact furnizorul SOC?',
   'SOC-02': 'Ce sisteme / segmente de rețea NU sunt integrate în monitorizare?',
   'SOC-03': 'Monitorizarea SOC este cu adevărat 24/7?',
   'SOC-04': 'Care este SLA-ul de primă notificare pentru incidentul P1 (critic)?',
@@ -79,7 +79,7 @@ export const questionTextRo: Record<string, string> = {
   'INC-04': 'Cine comunică cu autoritatea de reglementare (ex. NIS / DNSC) în cazul unui incident raportabil?',
   'INC-05': 'Există o matrice RACI scrisă între furnizorii cheie și IT-ul intern?',
   'INC-06': 'Există un model de clasificare a severității incidentelor (P1/P2/P3)?',
-  'CON-01': 'Există clauze de răspundere în contractul cu Furnizor A legate de pierderea datelor sau încălcări de securitate?',
+  'CON-01': 'Există clauze de răspundere în contractul cu principalul furnizor IT legate de pierderea datelor sau încălcări de securitate?',
   'CON-02': 'Există SLA-uri de răspuns / rezolvare definite în contractele cu furnizori critici?',
   'CON-03': 'Există un plan documentat de ieșire (exit plan) pentru înlocuirea furnizorului critic?',
   'CON-04': 'Contractele conțin clauze care obligă cooperarea furnizorilor în caz de incident?',
@@ -88,8 +88,8 @@ export const questionTextRo: Record<string, string> = {
   'NIS-03': 'Obligația și procedura de raportare a incidentelor către autoritatea competentă (ex. NIS / DNSC) sunt cunoscute și documentate?',
   'NIS-04': 'Există o analiză documentată a riscurilor de securitate cibernetică pentru organizație?',
   'KIL-01': 'Cât de repede poate fi pornit un sistem critic de afaceri de la backup pe un server separat?',
-  'KIL-02': 'Dacă Furnizor A este compromis, atacatorul are automat acces la rețeaua organizației?',
-  'KIL-03': 'Este posibil din punct de vedere tehnic ca organizația să opereze complet fără Furnizor A?',
+  'KIL-02': 'Dacă principalul furnizor IT este compromis, atacatorul are automat acces la rețeaua organizației?',
+  'KIL-03': 'Este posibil din punct de vedere tehnic ca organizația să opereze complet fără principalul furnizor IT?',
 };
 
 export const questionPurposeRo: Record<string, string> = {
@@ -157,9 +157,9 @@ export const questionPoorAnswerRo: Record<string, string> = {
   'GEN-02': 'Nu știm, totul s-ar opri',
   'GEN-03': 'Nu există un inventar precis al echipamentelor',
   'GEN-04': 'Există sisteme EOL, nu există plan de migrare',
-  'VEN-01': 'Furnizor A realizează exclusiv toate activitățile enumerate',
+  'VEN-01': 'Principalul furnizor IT realizează exclusiv toate activitățile enumerate',
   'VEN-02': 'Nu există competență IT internă',
-  'VEN-03': 'Da, Furnizor A este singurul punct critic',
+  'VEN-03': 'Da, principalul furnizor IT este singurul punct critic',
   'VEN-04': 'Nu există o astfel de analiză',
   'VEN-05': 'Nu a existat niciodată o revizuire',
   'VPN-01': 'Nu există un registru actualizat al acceselor VPN',
@@ -209,7 +209,7 @@ export const questionPoorAnswerRo: Record<string, string> = {
   'NIS-04': 'Nu există analiză de risc',
   'KIL-01': 'Nu știm / nu a fost testat',
   'KIL-02': 'Da, există acces automat',
-  'KIL-03': 'Nu, funcționarea fără Furnizor A este imposibilă',
+  'KIL-03': 'Nu, funcționarea fără principalul furnizor IT este imposibilă',
 };
 
 export const questionStrongAnswerRo: Record<string, string> = {
