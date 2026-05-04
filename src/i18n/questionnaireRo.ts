@@ -17,14 +17,14 @@ export const sectionTitleRo: Record<string, string> = {
 };
 
 export const sectionDescRo: Record<string, string> = {
-  'Kritikus rendszerek, IT környezet áttekintése': 'Prezentarea sistemelor critice și a mediului IT',
-  'Furnizor A és egyéb beszállítói függőség feltérképezése': 'Maparea dependenței de Furnizor A și alți furnizori',
+  'Kritikus rendszerek és IT környezet áttekintése': 'Prezentarea sistemelor critice și a mediului IT',
+  'IT beszállítói függőség feltérképezése': 'Maparea dependenței de furnizorii IT',
   'VPN, távoli hozzáférés és külső fél hozzáférési kockázatok': 'VPN, acces la distanță și riscuri de acces terță parte',
   'AD, GPO, jogosultságkezelés, admin tiering': 'AD, GPO, gestionarea privilegiilor, admin tiering',
   'Végpontvédelem, tűzfal, EDR/XDR megoldások': 'Protecție endpoint, firewall, soluții EDR/XDR',
   'Hálózati szegmentáció, VLAN-ok, zónák': 'Segmentare rețea, VLAN-uri, zone',
   'Backup, restore, DR, ransomware recovery': 'Backup, restaurare, DR, recuperare ransomware',
-  'Furnizor B (SOC), monitoring, naplóforrások, lefedettség': 'Furnizor B (SOC), monitorizare, surse de jurnale, acoperire',
+  'SOC, monitoring, naplóforrások, lefedettség': 'SOC, monitorizare, surse de jurnale, acoperire',
   'Incidenskezelési felelősség, RACI, hatósági jelentéstétel': 'Responsabilitatea gestionării incidentelor, RACI, raportare la autoritate',
   'SLA, szerződések, exit stratégia, vendor governance': 'SLA, contracte, strategie de ieșire, guvernanță furnizori',
   'NIS2 és egyéb szabályozási követelmények, megfelelőségi státusz': 'Cerințe NIS2 și alte cerințe de reglementare, status de conformitate',
