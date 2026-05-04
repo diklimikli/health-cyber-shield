@@ -12,7 +12,7 @@ export const sectionTitleRo: Record<string, string> = {
   'SOC / monitoring / naplókezelés / detektálás': 'SOC / monitorizare / gestionare jurnale / detecție',
   'Incidenskezelés / felelősség / RACI / jelentéstétel': 'Gestionarea incidentelor / responsabilitate / RACI / raportare',
   'Szerződések / SLA / beszállítói irányítás / exit terv': 'Contracte / SLA / guvernanța furnizorilor / plan de ieșire',
-  'Megfelelőség / NIS2 / DNSC-releváns kérdések': 'Conformitate / NIS2 / întrebări relevante DNSC',
+  'Megfelelőség / NIS2 / szabályozási kérdések': 'Conformitate / NIS2 / întrebări relevante de reglementare',
   'Kritikus döntéstámogató kérdések': 'Întrebări critice de suport decizional',
 };
 
@@ -25,9 +25,9 @@ export const sectionDescRo: Record<string, string> = {
   'Hálózati szegmentáció, VLAN-ok, zónák': 'Segmentare rețea, VLAN-uri, zone',
   'Backup, restore, DR, ransomware recovery': 'Backup, restaurare, DR, recuperare ransomware',
   'Furnizor B (SOC), monitoring, naplóforrások, lefedettség': 'Furnizor B (SOC), monitorizare, surse de jurnale, acoperire',
-  'Incidenskezelési felelősség, RACI, DNSC jelentéstétel': 'Responsabilitatea gestionării incidentelor, RACI, raportare DNSC',
+  'Incidenskezelési felelősség, RACI, hatósági jelentéstétel': 'Responsabilitatea gestionării incidentelor, RACI, raportare la autoritate',
   'SLA, szerződések, exit stratégia, vendor governance': 'SLA, contracte, strategie de ieșire, guvernanță furnizori',
-  'NIS2, DNSC követelmények, megfelelőségi státusz': 'Cerințe NIS2, DNSC, status de conformitate',
+  'NIS2 és egyéb szabályozási követelmények, megfelelőségi státusz': 'Cerințe NIS2 și alte cerințe de reglementare, status de conformitate',
   'Azonnali kockázatot jelző kiemelt kérdések': 'Întrebări prioritare care indică risc imediat',
 };
 
@@ -93,8 +93,8 @@ export const questionTextRo: Record<string, string> = {
 };
 
 export const questionPurposeRo: Record<string, string> = {
-  'GEN-01': 'Identificarea sistemelor critice și evaluarea impactului asupra îngrijirii pacienților',
-  'GEN-02': 'Identificarea gradului de dependență de furnizor asupra continuității îngrijirii pacienților',
+  'GEN-01': 'Identificarea sistemelor critice și evaluarea impactului asupra continuității afacerii',
+  'GEN-02': 'Identificarea gradului de dependență de furnizor asupra continuității afacerii',
   'GEN-03': 'Evaluarea dimensiunii și complexității mediului IT',
   'GEN-04': 'Identificarea sistemelor învechite, fără suport',
   'VEN-01': 'Maparea completă a activităților furnizorului și determinarea gradului de dependență',
@@ -117,7 +117,7 @@ export const questionPurposeRo: Record<string, string> = {
   'EPT-02': 'Evaluarea existenței și acoperirii soluției de protecție endpoint',
   'EPT-03': 'Evaluarea regularității întreținerii și revizuirii GPO',
   'NET-01': 'Evaluarea segmentării rețelei și protecției împotriva mișcării laterale',
-  'NET-02': 'Evaluarea izolării rețelei dispozitivelor medicale',
+  'NET-02': 'Evaluarea izolării rețelei dispozitivelor specializate (OT/IoT)',
   'BCK-01': 'Evaluarea diversității și securității stocării backup-urilor',
   'BCK-02': 'Evaluarea protecției backup-ului împotriva ransomware',
   'BCK-03': 'Evaluarea existenței copiei de backup izolate de rețea',
@@ -182,7 +182,7 @@ export const questionPoorAnswerRo: Record<string, string> = {
   'BCK-02': 'Nu există backup imutabil',
   'BCK-03': 'Nu există backup offline',
   'BCK-04': 'Nu a existat niciodată un test de restaurare',
-  'BCK-05': 'Nu a existat niciodată un test de restaurare PACS',
+  'BCK-05': 'Nu a existat niciodată un test de restaurare al sistemului critic',
   'BCK-06': 'Nu a existat niciodată un test de restaurare SQL',
   'BCK-07': 'Nu există obiective RTO/RPO definite',
   'BCK-08': 'Nu există ransomware recovery runbook',
@@ -302,7 +302,7 @@ export const questionExpectedEvidenceRo: Record<string, string> = {
   'BCK-02': 'Configurație backup, setare imutabilitate',
   'BCK-03': 'Procedură backup offline, documentație stocare',
   'BCK-04': 'Proces-verbal test restaurare, documentație rezultate',
-  'BCK-05': 'Proces-verbal test restaurare PACS',
+  'BCK-05': 'Proces-verbal test restaurare sistem critic',
   'BCK-06': 'Proces-verbal test restaurare SQL',
   'BCK-07': 'Documentație RTO/RPO, BIA',
   'BCK-08': 'Documentație ransomware recovery runbook',
@@ -316,7 +316,7 @@ export const questionExpectedEvidenceRo: Record<string, string> = {
   'INC-01': 'Plan gestionare incidente, matrice RACI',
   'INC-02': 'Plan gestionare incidente, matrice decizională',
   'INC-03': 'Procedură gestionare incidente',
-  'INC-04': 'Procedură comunicare, contact DNSC',
+  'INC-04': 'Procedură comunicare, contact autoritate competentă',
   'INC-05': 'Matrice RACI documentată',
   'INC-06': 'Model clasificare incidente',
   'CON-01': 'Contract furnizor, clauze juridice',
@@ -325,9 +325,9 @@ export const questionExpectedEvidenceRo: Record<string, string> = {
   'CON-04': 'Clauze contractuale, protocoale de incident',
   'NIS-01': 'Evaluare conformitate NIS2, raport gap',
   'NIS-02': 'Organigramă, fișă de post CISO',
-  'NIS-03': 'Evidențe raportare incidente, comunicare DNSC',
+  'NIS-03': 'Evidențe raportare incidente, comunicare cu autoritatea',
   'NIS-04': 'Document evaluare riscuri securitate cibernetică',
-  'KIL-01': 'Plan DR, rezultat test restore, documentație HIS',
+  'KIL-01': 'Plan DR, rezultat test restore, documentația sistemului critic',
   'KIL-02': 'Schemă rețea, configurație acces, documentație VPN',
   'KIL-03': 'Plan continuitate, documentație competențe interne',
 };
@@ -505,7 +505,7 @@ export const evidenceChecklistRo: string[] = [
   'Configurație și programare backup',
   'Dovadă setare backup imutabil',
   'Procedură backup offline',
-  'Procese-verbale test restaurare (sistem, PACS, SQL)',
+  'Procese-verbale test restaurare (sisteme critice, baze de date)',
   'Documentație RTO/RPO',
   'Ransomware recovery runbook',
   'Inventar surse jurnale SOC',
@@ -516,7 +516,7 @@ export const evidenceChecklistRo: string[] = [
   'Model clasificare incidente (P1/P2/P3)',
   'Matrice escaladare',
   'Clasificare NIS2 și analiză gap',
-  'Procedură raportare DNSC',
+  'Procedură raportare către autoritate competentă',
   'Politică guvernanță furnizori',
   'Documentație plan de ieșire',
   'Document evaluare riscuri',
@@ -558,7 +558,7 @@ export const roadmapTasksRo: Record<string, { title: string; description: string
   },
   'MFA kiterjesztése minden kritikus rendszerre': {
     title: 'Extinderea MFA la toate sistemele critice',
-    description: 'Implementarea autentificării multi-factor pentru tot accesul administrativ și la sistemele medicale.',
+    description: 'Implementarea autentificării multi-factor pentru tot accesul administrativ și la sistemele critice de afaceri.',
     milestone: 'Îmbunătățirea securității accesului',
   },
   'Privileged Access Management (PAM) bevezetése': {
