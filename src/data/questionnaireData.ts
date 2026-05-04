@@ -359,12 +359,12 @@ export const questions: Question[] = [
   },
   {
     id: 'BCK-05', sectionId: 'backup',
-    text: 'Mikor történt utoljára PACS rendszer visszaállítási teszt?',
-    purpose: 'Képalkotó diagnosztikai rendszer visszaállítási képesség felmérése',
+    text: 'Mikor történt utoljára kritikus üzleti rendszer (pl. ERP / fő adatbázis) visszaállítási teszt?',
+    purpose: 'Kritikus üzleti rendszer visszaállítási képességének felmérése',
     type: 'multiple', options: ['6 hónapon belül', '12 hónapon belül', 'Több mint 1 éve', 'Soha'],
-    expectedEvidence: 'PACS restore teszt jegyzőkönyv',
+    expectedEvidence: 'Restore teszt jegyzőkönyv',
     riskWeight: 'High', riskDomain: 'backup_dr',
-    poorAnswer: 'Soha nem volt PACS restore teszt', strongAnswer: '6 hónapon belüli sikeres teszt',
+    poorAnswer: 'Soha nem volt restore teszt', strongAnswer: '6 hónapon belüli sikeres teszt',
     scoringLogic: '6 hónapon belül = 3pt, 12 hónapon belül = 2pt, soha = 0pt', maxPoints: 3,
   },
   {
