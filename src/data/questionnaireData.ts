@@ -85,7 +85,7 @@ export const questions: Question[] = [
   },
   {
     id: 'GEN-03', sectionId: 'general',
-    text: 'Hány szerver és végpont van az intézmény hálózatán?',
+    text: 'Hány szerver és végpont van a szervezet hálózatán?',
     purpose: 'IT környezet méretének és komplexitásának felmérése',
     type: 'freetext', expectedEvidence: 'Eszközleltár, CMDB kivonat',
     riskWeight: 'Medium', riskDomain: 'endpoint_security',
