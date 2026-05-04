@@ -499,7 +499,7 @@ export const questions: Question[] = [
   },
   {
     id: 'INC-04', sectionId: 'incident',
-    text: 'Ki jelent a illetékes szabályozó hatóság (pl. NIS / DNSC / NCSC) felé incidens esetén?',
+    text: 'Ki jelent az illetékes szabályozó hatóság (pl. NIS / DNSC / NCSC) felé incidens esetén?',
     purpose: 'Hatósági jelentéstételi felelősség tisztázása',
     type: 'freetext', expectedEvidence: 'NIS2 jelentéstételi eljárás',
     riskWeight: 'High', riskDomain: 'incident_ownership',
