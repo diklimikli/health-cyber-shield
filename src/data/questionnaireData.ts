@@ -105,18 +105,18 @@ export const questions: Question[] = [
   // === SECTION 2: Vendor Dependency ===
   {
     id: 'VEN-01', sectionId: 'vendor',
-    text: 'Az Info World mely tevékenységeket végzi? (szerver üzemeltetés, backup, restore, SQL adminisztráció, OS frissítés, domain admin, monitoring)',
+    text: 'A Beszállító A mely tevékenységeket végzi? (szerver üzemeltetés, backup, restore, SQL adminisztráció, OS frissítés, domain admin, monitoring)',
     purpose: 'Beszállítói tevékenységek teljes körű feltérképezése és a függőség mértékének megállapítása',
     type: 'multiple', options: ['Szerver üzemeltetés', 'Backup kezelés', 'Restore végrehajtás', 'SQL adminisztráció', 'OS patch/frissítés', 'Domain adminisztráció', 'Monitoring', 'Felhasználókezelés'],
     expectedEvidence: 'Szolgáltatási szerződés, RACI mátrix, feladatleírás',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Az Info World végzi az összes felsorolt tevékenységet kizárólagosan', strongAnswer: 'Feladatok dokumentáltan megosztottak, belső kompetencia is van',
+    poorAnswer: 'A Beszállító A végzi az összes felsorolt tevékenységet kizárólagosan', strongAnswer: 'Feladatok dokumentáltan megosztottak, belső kompetencia is van',
     scoringLogic: '7-8 jelölve = 0pt (teljes függőség), 4-6 = 2pt, 1-3 = 4pt', maxPoints: 4,
-    redFlagTrigger: 'Ha minden tevékenységet az Info World végez', isKillerQuestion: true,
+    redFlagTrigger: 'Ha minden tevékenységet a Beszállító A végez', isKillerQuestion: true,
   },
   {
     id: 'VEN-02', sectionId: 'vendor',
-    text: 'Van-e belső IT személyzet, aki képes lenne a kritikus rendszerek alapszintű üzemeltetésére az Info World nélkül?',
+    text: 'Van-e belső IT személyzet, aki képes lenne a kritikus rendszerek alapszintű üzemeltetésére a Beszállító A nélkül?',
     purpose: 'Belső kompetencia és redundancia felmérése',
     type: 'yesno', expectedEvidence: 'Szervezeti ábra, kompetencia mátrix, képzési terv',
     riskWeight: 'High', riskDomain: 'vendor_dependency',
@@ -125,11 +125,11 @@ export const questions: Question[] = [
   },
   {
     id: 'VEN-03', sectionId: 'vendor',
-    text: 'Az Info World single point of failure (egyetlen kritikus pont) a szervezet IT működésében?',
+    text: 'A Beszállító A single point of failure (egyetlen kritikus pont) a szervezet IT működésében?',
     purpose: 'Kritikus függőségi pont azonosítása',
     type: 'yesno', expectedEvidence: 'Függőségi elemzés, kockázatértékelés',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Igen, az Info World egyetlen kritikus pont', strongAnswer: 'Nem, van redundancia és alternatív képesség',
+    poorAnswer: 'Igen, a Beszállító A egyetlen kritikus pont', strongAnswer: 'Nem, van redundancia és alternatív képesség',
     scoringLogic: 'Nem SPOF = 3pt, részben = 1pt, igen SPOF = 0pt', maxPoints: 3,
     redFlagTrigger: 'Ha igen', isKillerQuestion: true,
   },
@@ -144,7 +144,7 @@ export const questions: Question[] = [
   },
   {
     id: 'VEN-05', sectionId: 'vendor',
-    text: 'Milyen rendszerességgel történik az Info World tevékenységének felülvizsgálata / auditja?',
+    text: 'Milyen rendszerességgel történik a Beszállító A tevékenységének felülvizsgálata / auditja?',
     purpose: 'Beszállítói felügyelet hatékonyságának felmérése',
     type: 'multiple', options: ['Soha', 'Évente', 'Félévente', 'Negyedévente', 'Folyamatos monitoring'],
     expectedEvidence: 'Audit jelentések, felülvizsgálati jegyzőkönyvek',
@@ -156,7 +156,7 @@ export const questions: Question[] = [
   // === SECTION 3: Remote Access / VPN ===
   {
     id: 'VPN-01', sectionId: 'remote_access',
-    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az intézmény hálózatához? (Info World, CYMED, egyéb)',
+    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az intézmény hálózatához? (Beszállító A, Beszállító B, egyéb)',
     purpose: 'Külső hozzáférések teljes feltérképezése',
     type: 'freetext', expectedEvidence: 'VPN konfiguráció, hozzáférési lista, VPN napló',
     riskWeight: 'High', riskDomain: 'access_control',
@@ -400,7 +400,7 @@ export const questions: Question[] = [
   // === SECTION 8: SOC / Monitoring ===
   {
     id: 'SOC-01', sectionId: 'soc',
-    text: 'Pontosan mely naplóforrásokat (log source) gyűjti a CYMED?',
+    text: 'Pontosan mely naplóforrásokat (log source) gyűjti a Beszállító B?',
     purpose: 'Monitoring lefedettség és vakfoltok azonosítása',
     type: 'freetext', expectedEvidence: 'Naplóforrás leltár, SIEM konfiguráció',
     riskWeight: 'Critical', riskDomain: 'soc_monitoring',
@@ -508,7 +508,7 @@ export const questions: Question[] = [
   },
   {
     id: 'INC-05', sectionId: 'incident',
-    text: 'Van-e írásban rögzített RACI mátrix az Info World és a CYMED között?',
+    text: 'Van-e írásban rögzített RACI mátrix a Beszállító A és a Beszállító B között?',
     purpose: 'Beszállítók közötti felelősségmegosztás tisztázottságának felmérése',
     type: 'yesno', expectedEvidence: 'RACI mátrix dokumentum',
     riskWeight: 'Critical', riskDomain: 'incident_ownership',
@@ -608,11 +608,11 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-02', sectionId: 'killer',
-    text: 'A szervezet képes-e önállóan (az Info World nélkül) visszaállítani a HIS rendszert egy backup-ból?',
+    text: 'A szervezet képes-e önállóan (a Beszállító A nélkül) visszaállítani a HIS rendszert egy backup-ból?',
     purpose: 'Teljes beszállítói függőség a helyreállítás terén',
     type: 'yesno', expectedEvidence: 'Restore eljárás, belső kompetencia dokumentáció',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Nem, kizárólag az Info World képes rá', strongAnswer: 'Igen, dokumentált eljárás és képzett személyzet',
+    poorAnswer: 'Nem, kizárólag a Beszállító A képes rá', strongAnswer: 'Igen, dokumentált eljárás és képzett személyzet',
     scoringLogic: 'Igen = 3pt, részben = 1pt, nem = 0pt', maxPoints: 3,
     isKillerQuestion: true,
   },
@@ -628,7 +628,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-04', sectionId: 'killer',
-    text: 'Ha az Info World felmondaná a szerződést 30 napos határidővel, az intézmény képes lenne-e folytatni az IT működést?',
+    text: 'Ha a Beszállító A felmondaná a szerződést 30 napos határidővel, az intézmény képes lenne-e folytatni az IT működést?',
     purpose: 'Vendor lock-in és exit readiness valós felmérése',
     type: 'multiple', options: ['Igen, van exit terv', 'Részben, de kritikus kockázattal', 'Nem, teljes leállás lenne', 'Nem tudjuk'],
     expectedEvidence: 'Exit plan, átmeneti terv, alternatív beszállítói lista',
@@ -639,7 +639,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-05', sectionId: 'killer',
-    text: 'A szervezet tudja-e pontosan, hogy a CYMED SOC mit monitoroz és mit NEM?',
+    text: 'A szervezet tudja-e pontosan, hogy a Beszállító B (SOC) mit monitoroz és mit NEM?',
     purpose: 'SOC lefedettség tudatosságának felmérése',
     type: 'yesno', expectedEvidence: 'SOC scope dokumentáció, lefedettségi mátrix',
     riskWeight: 'High', riskDomain: 'soc_monitoring',
@@ -686,7 +686,7 @@ export const redFlags: RedFlag[] = [
     triggerQuestionId: 'INC-01', triggerCondition: 'empty_or_unclear',
   },
   {
-    id: 'RF-06', title: 'No written RACI between Info World and CYMED', titleHu: 'Nincs írott RACI az Info World és CYMED között',
+    id: 'RF-06', title: 'No written RACI between Beszállító A and Beszállító B', titleHu: 'Nincs írott RACI a Beszállító A és Beszállító B között',
     whyCritical: 'Felelősségi körök tisztázatlansága kritikus helyzetben döntésképtelenséghez vezet.',
     consequences: 'Felelősségi vákuum incidens esetén, egymásra mutogatás',
     immediateAction: 'RACI mátrix létrehozása és jóváhagyása mindkét féllel',
@@ -752,7 +752,7 @@ export const evidenceChecklist = [
   'Üzleti hatáselemzés (BIA)',
   'Üzletmenet-folytonossági terv (BCP)',
   'Beszállítói szerződések és SLA-k',
-  'RACI mátrix (Info World / CYMED / belső IT)',
+  'RACI mátrix (Beszállító A / Beszállító B / belső IT)',
   'VPN konfiguráció és hozzáférési listák',
   'MFA konfiguráció bizonyíték',
   'Active Directory csoport tagság export (Domain Admins, Enterprise Admins)',
