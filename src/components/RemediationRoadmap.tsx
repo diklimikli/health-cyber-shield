@@ -184,7 +184,7 @@ function getDomainTasks(domain: string, labelHu: string, phase: 'phase2' | 'phas
     },
     access_control: {
       phase2: [
-        { title: 'MFA kiterjesztése minden kritikus rendszerre', description: 'Többfaktoros hitelesítés bevezetése minden adminisztrátori és orvosi rendszer hozzáférésre.', priority: 'high', domain: labelHu, milestone: 'Hozzáférés-biztonság javítása' },
+        { title: 'MFA kiterjesztése minden kritikus rendszerre', description: 'Többfaktoros hitelesítés bevezetése minden adminisztrátori és üzletkritikus rendszer hozzáférésre.', priority: 'high', domain: labelHu, milestone: 'Hozzáférés-biztonság javítása' },
       ],
       phase3: [
         { title: 'Privileged Access Management (PAM) bevezetése', description: 'Kiemelt jogosultságok kezelésének automatizálása és auditálhatóvá tétele.', priority: 'medium', domain: labelHu, milestone: 'PAM implementáció' },
