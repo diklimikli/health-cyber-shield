@@ -62,7 +62,7 @@ export const questionTextRo: Record<string, string> = {
   'BCK-02': 'Există o soluție de backup imutabil (immutable)?',
   'BCK-03': 'Există o copie de backup offline (air-gapped)?',
   'BCK-04': 'Când a fost ultimul test complet de restaurare (full restore test)?',
-  'BCK-05': 'Când a fost ultimul test de restaurare a sistemului PACS?',
+  'BCK-05': 'Când a fost ultimul test de restaurare al unui sistem critic de afaceri (ex. ERP / bază de date principală)?',
   'BCK-06': 'Când a fost ultimul test de restaurare a bazei de date SQL?',
   'BCK-07': 'Au fost definite obiective RTO (Recovery Time Objective) și RPO (Recovery Point Objective)?',
   'BCK-08': 'Există un ransomware recovery runbook (plan de recuperare)?',
