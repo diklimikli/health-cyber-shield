@@ -66,7 +66,7 @@ const translations = {
   },
   'risk.good': {
     hu: 'Az intézmény jó kontroll szintet mutat. A folyamatos fejlesztés és monitorozás fenntartása javasolt.',
-    ro: 'Instituția prezintă un nivel bun de control. Se recomandă menținerea îmbunătățirii și monitorizării continue.'
+    ro: 'Organizația prezintă un nivel bun de control. Se recomandă menținerea îmbunătățirii și monitorizării continue.'
   },
 
   // Escalation items
