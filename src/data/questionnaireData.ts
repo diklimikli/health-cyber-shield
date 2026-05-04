@@ -66,8 +66,8 @@ export const questions: Question[] = [
   // === SECTION 1: General IT Landscape ===
   {
     id: 'GEN-01', sectionId: 'general',
-    text: 'Melyek az intézmény betegellátás szempontjából kritikus IT rendszerei? (HIS, PACS, LIS, RIS, gyógyszertári rendszer, stb.)',
-    purpose: 'Kritikus rendszerek azonosítása és a betegellátásra gyakorolt hatás felmérése',
+    text: 'Melyek a szervezet üzletmenete szempontjából kritikus IT rendszerei? (pl. ERP, CRM, központi adatbázisok, ágazat-specifikus rendszerek)',
+    purpose: 'Kritikus rendszerek azonosítása és az üzletmenetre gyakorolt hatás felmérése',
     type: 'freetext', expectedEvidence: 'Kritikus rendszerek leltára, üzleti hatáselemzés (BIA)',
     riskWeight: 'High', riskDomain: 'vendor_dependency',
     poorAnswer: 'Nincs dokumentált kritikus rendszerlista', strongAnswer: 'Teljes, priorizált kritikus rendszerleltár BIA-val',
@@ -75,8 +75,8 @@ export const questions: Question[] = [
   },
   {
     id: 'GEN-02', sectionId: 'general',
-    text: 'Mi történik, ha az Info World 24-48 órán keresztül nem elérhető? Mely rendszerek működnek tovább és melyek állnak le?',
-    purpose: 'Beszállítói függőség mértékének feltárása a betegellátás folytonosságára vonatkozóan',
+    text: 'Mi történik, ha a fő IT beszállító (Beszállító A) 24-48 órán keresztül nem elérhető? Mely rendszerek működnek tovább és melyek állnak le?',
+    purpose: 'Beszállítói függőség mértékének feltárása az üzletmenet folytonosságára vonatkozóan',
     type: 'freetext', expectedEvidence: 'Üzletmenet-folytonossági terv (BCP), függőségi mátrix',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
     poorAnswer: 'Nem tudjuk, minden leállna', strongAnswer: 'Dokumentált BCP, amely részletezi a folytonossági képességeket',
