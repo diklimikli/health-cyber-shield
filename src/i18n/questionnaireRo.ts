@@ -398,7 +398,7 @@ export const redFlagTitleRo: Record<string, string> = {
   'RF-03': 'Nu există test de restaurare documentat în ultimele 12 luni',
   'RF-04': 'Nu există backup imutabil sau offline',
   'RF-05': 'Nu există comandant de incident desemnat',
-  'RF-06': 'Nu există matrice RACI scrisă între Furnizor A și Furnizor B',
+  'RF-06': 'Nu există matrice RACI scrisă între furnizorii cheie',
   'RF-07': 'GPO Disable Firewall activ pe servere',
   'RF-08': 'Nu există SLA de notificare incident P1 24/7',
   'RF-09': 'Nu există inventar surse de jurnale',
