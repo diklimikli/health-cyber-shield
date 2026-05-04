@@ -48,17 +48,17 @@ export interface RedFlag {
 }
 
 export const sections: Section[] = [
-  { id: 'general', title: 'General IT Landscape', titleHu: 'Általános IT infrastruktúra és kritikus rendszerek', description: 'Kritikus rendszerek, IT környezet áttekintése', icon: 'Server', order: 1 },
-  { id: 'vendor', title: 'Vendor Dependency', titleHu: 'Beszállítói függőség és operatív kontroll', description: 'Info World és egyéb beszállítói függőség feltérképezése', icon: 'Link', order: 2 },
+  { id: 'general', title: 'General IT Landscape', titleHu: 'Általános IT infrastruktúra és kritikus rendszerek', description: 'Kritikus rendszerek és IT környezet áttekintése', icon: 'Server', order: 1 },
+  { id: 'vendor', title: 'Vendor Dependency', titleHu: 'Beszállítói függőség és operatív kontroll', description: 'IT beszállítói függőség feltérképezése', icon: 'Link', order: 2 },
   { id: 'remote_access', title: 'Remote Access / VPN', titleHu: 'Távoli hozzáférés / VPN / harmadik fél hozzáférés', description: 'VPN, távoli hozzáférés és külső fél hozzáférési kockázatok', icon: 'Wifi', order: 3 },
   { id: 'identity', title: 'Identity / AD / PAM', titleHu: 'Identitáskezelés / Active Directory / kiemelt jogosultságok', description: 'AD, GPO, jogosultságkezelés, admin tiering', icon: 'Shield', order: 4 },
   { id: 'endpoint', title: 'Endpoint / Host Security', titleHu: 'Végpont- és hosztbiztonság / tűzfal / EDR', description: 'Végpontvédelem, tűzfal, EDR/XDR megoldások', icon: 'Monitor', order: 5 },
   { id: 'network', title: 'Network Segmentation', titleHu: 'Hálózati szegmentáció és laterális mozgás kontroll', description: 'Hálózati szegmentáció, VLAN-ok, zónák', icon: 'Network', order: 6 },
   { id: 'backup', title: 'Backup / DR', titleHu: 'Mentés / visszaállítás / katasztrófa-elhárítás', description: 'Backup, restore, DR, ransomware recovery', icon: 'Database', order: 7 },
-  { id: 'soc', title: 'SOC / Monitoring', titleHu: 'SOC / monitoring / naplókezelés / detektálás', description: 'CYMED SOC, monitoring, naplóforrások, lefedettség', icon: 'Eye', order: 8 },
-  { id: 'incident', title: 'Incident Response', titleHu: 'Incidenskezelés / felelősség / RACI / jelentéstétel', description: 'Incidenskezelési felelősség, RACI, DNSC jelentéstétel', icon: 'AlertTriangle', order: 9 },
+  { id: 'soc', title: 'SOC / Monitoring', titleHu: 'SOC / monitoring / naplókezelés / detektálás', description: 'SOC, monitoring, naplóforrások, lefedettség', icon: 'Eye', order: 8 },
+  { id: 'incident', title: 'Incident Response', titleHu: 'Incidenskezelés / felelősség / RACI / jelentéstétel', description: 'Incidenskezelési felelősség, RACI, hatósági jelentéstétel', icon: 'AlertTriangle', order: 9 },
   { id: 'contractual', title: 'Contracts / SLA', titleHu: 'Szerződések / SLA / beszállítói irányítás / exit terv', description: 'SLA, szerződések, exit stratégia, vendor governance', icon: 'FileText', order: 10 },
-  { id: 'compliance', title: 'Compliance / NIS2', titleHu: 'Megfelelőség / NIS2 / DNSC-releváns kérdések', description: 'NIS2, DNSC követelmények, megfelelőségi státusz', icon: 'Scale', order: 11 },
+  { id: 'compliance', title: 'Compliance / NIS2', titleHu: 'Megfelelőség / NIS2 / szabályozási kérdések', description: 'NIS2 és egyéb szabályozási követelmények, megfelelőségi státusz', icon: 'Scale', order: 11 },
   { id: 'killer', title: 'Killer Questions', titleHu: 'Kritikus döntéstámogató kérdések', description: 'Azonnali kockázatot jelző kiemelt kérdések', icon: 'Zap', order: 12 },
 ];
 
@@ -66,8 +66,8 @@ export const questions: Question[] = [
   // === SECTION 1: General IT Landscape ===
   {
     id: 'GEN-01', sectionId: 'general',
-    text: 'Melyek az intézmény betegellátás szempontjából kritikus IT rendszerei? (HIS, PACS, LIS, RIS, gyógyszertári rendszer, stb.)',
-    purpose: 'Kritikus rendszerek azonosítása és a betegellátásra gyakorolt hatás felmérése',
+    text: 'Melyek a szervezet üzletmenete szempontjából kritikus IT rendszerei? (pl. ERP, CRM, központi adatbázisok, ágazat-specifikus rendszerek)',
+    purpose: 'Kritikus rendszerek azonosítása és az üzletmenetre gyakorolt hatás felmérése',
     type: 'freetext', expectedEvidence: 'Kritikus rendszerek leltára, üzleti hatáselemzés (BIA)',
     riskWeight: 'High', riskDomain: 'vendor_dependency',
     poorAnswer: 'Nincs dokumentált kritikus rendszerlista', strongAnswer: 'Teljes, priorizált kritikus rendszerleltár BIA-val',
@@ -75,8 +75,8 @@ export const questions: Question[] = [
   },
   {
     id: 'GEN-02', sectionId: 'general',
-    text: 'Mi történik, ha az Info World 24-48 órán keresztül nem elérhető? Mely rendszerek működnek tovább és melyek állnak le?',
-    purpose: 'Beszállítói függőség mértékének feltárása a betegellátás folytonosságára vonatkozóan',
+    text: 'Mi történik, ha a fő IT beszállító (Beszállító A) 24-48 órán keresztül nem elérhető? Mely rendszerek működnek tovább és melyek állnak le?',
+    purpose: 'Beszállítói függőség mértékének feltárása az üzletmenet folytonosságára vonatkozóan',
     type: 'freetext', expectedEvidence: 'Üzletmenet-folytonossági terv (BCP), függőségi mátrix',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
     poorAnswer: 'Nem tudjuk, minden leállna', strongAnswer: 'Dokumentált BCP, amely részletezi a folytonossági képességeket',
@@ -85,7 +85,7 @@ export const questions: Question[] = [
   },
   {
     id: 'GEN-03', sectionId: 'general',
-    text: 'Hány szerver és végpont van az intézmény hálózatán?',
+    text: 'Hány szerver és végpont van a szervezet hálózatán?',
     purpose: 'IT környezet méretének és komplexitásának felmérése',
     type: 'freetext', expectedEvidence: 'Eszközleltár, CMDB kivonat',
     riskWeight: 'Medium', riskDomain: 'endpoint_security',
@@ -105,18 +105,18 @@ export const questions: Question[] = [
   // === SECTION 2: Vendor Dependency ===
   {
     id: 'VEN-01', sectionId: 'vendor',
-    text: 'Az Info World mely tevékenységeket végzi? (szerver üzemeltetés, backup, restore, SQL adminisztráció, OS frissítés, domain admin, monitoring)',
+    text: 'A Beszállító A mely tevékenységeket végzi? (szerver üzemeltetés, backup, restore, SQL adminisztráció, OS frissítés, domain admin, monitoring)',
     purpose: 'Beszállítói tevékenységek teljes körű feltérképezése és a függőség mértékének megállapítása',
     type: 'multiple', options: ['Szerver üzemeltetés', 'Backup kezelés', 'Restore végrehajtás', 'SQL adminisztráció', 'OS patch/frissítés', 'Domain adminisztráció', 'Monitoring', 'Felhasználókezelés'],
     expectedEvidence: 'Szolgáltatási szerződés, RACI mátrix, feladatleírás',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Az Info World végzi az összes felsorolt tevékenységet kizárólagosan', strongAnswer: 'Feladatok dokumentáltan megosztottak, belső kompetencia is van',
+    poorAnswer: 'A Beszállító A végzi az összes felsorolt tevékenységet kizárólagosan', strongAnswer: 'Feladatok dokumentáltan megosztottak, belső kompetencia is van',
     scoringLogic: '7-8 jelölve = 0pt (teljes függőség), 4-6 = 2pt, 1-3 = 4pt', maxPoints: 4,
-    redFlagTrigger: 'Ha minden tevékenységet az Info World végez', isKillerQuestion: true,
+    redFlagTrigger: 'Ha minden tevékenységet a Beszállító A végez', isKillerQuestion: true,
   },
   {
     id: 'VEN-02', sectionId: 'vendor',
-    text: 'Van-e belső IT személyzet, aki képes lenne a kritikus rendszerek alapszintű üzemeltetésére az Info World nélkül?',
+    text: 'Van-e belső IT személyzet, aki képes lenne a kritikus rendszerek alapszintű üzemeltetésére a Beszállító A nélkül?',
     purpose: 'Belső kompetencia és redundancia felmérése',
     type: 'yesno', expectedEvidence: 'Szervezeti ábra, kompetencia mátrix, képzési terv',
     riskWeight: 'High', riskDomain: 'vendor_dependency',
@@ -125,11 +125,11 @@ export const questions: Question[] = [
   },
   {
     id: 'VEN-03', sectionId: 'vendor',
-    text: 'Az Info World single point of failure (egyetlen kritikus pont) a szervezet IT működésében?',
+    text: 'A Beszállító A single point of failure (egyetlen kritikus pont) a szervezet IT működésében?',
     purpose: 'Kritikus függőségi pont azonosítása',
     type: 'yesno', expectedEvidence: 'Függőségi elemzés, kockázatértékelés',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Igen, az Info World egyetlen kritikus pont', strongAnswer: 'Nem, van redundancia és alternatív képesség',
+    poorAnswer: 'Igen, a Beszállító A egyetlen kritikus pont', strongAnswer: 'Nem, van redundancia és alternatív képesség',
     scoringLogic: 'Nem SPOF = 3pt, részben = 1pt, igen SPOF = 0pt', maxPoints: 3,
     redFlagTrigger: 'Ha igen', isKillerQuestion: true,
   },
@@ -144,7 +144,7 @@ export const questions: Question[] = [
   },
   {
     id: 'VEN-05', sectionId: 'vendor',
-    text: 'Milyen rendszerességgel történik az Info World tevékenységének felülvizsgálata / auditja?',
+    text: 'Milyen rendszerességgel történik a Beszállító A tevékenységének felülvizsgálata / auditja?',
     purpose: 'Beszállítói felügyelet hatékonyságának felmérése',
     type: 'multiple', options: ['Soha', 'Évente', 'Félévente', 'Negyedévente', 'Folyamatos monitoring'],
     expectedEvidence: 'Audit jelentések, felülvizsgálati jegyzőkönyvek',
@@ -156,7 +156,7 @@ export const questions: Question[] = [
   // === SECTION 3: Remote Access / VPN ===
   {
     id: 'VPN-01', sectionId: 'remote_access',
-    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az intézmény hálózatához? (Info World, CYMED, egyéb)',
+    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az szervezet hálózatához? (Beszállító A, Beszállító B, egyéb)',
     purpose: 'Külső hozzáférések teljes feltérképezése',
     type: 'freetext', expectedEvidence: 'VPN konfiguráció, hozzáférési lista, VPN napló',
     riskWeight: 'High', riskDomain: 'access_control',
@@ -296,7 +296,7 @@ export const questions: Question[] = [
   // === SECTION 6: Network Segmentation ===
   {
     id: 'NET-01', sectionId: 'network',
-    text: 'A hálózat szegmentált-e a klinikai / adminisztratív / beszállítói / infrastruktúra zónák között?',
+    text: 'A hálózat szegmentált-e a felhasználói / adminisztratív / beszállítói / infrastruktúra / OT zónák között?',
     purpose: 'Hálózati szegmentáció és laterális mozgás elleni védelem felmérése',
     type: 'multiple', options: ['Igen, teljes szegmentáció', 'Részleges szegmentáció', 'Nincs szegmentáció', 'Nem tudjuk'],
     expectedEvidence: 'Hálózati rajz, VLAN konfiguráció, tűzfalszabályok',
@@ -307,8 +307,8 @@ export const questions: Question[] = [
   },
   {
     id: 'NET-02', sectionId: 'network',
-    text: 'A orvostechnikai eszközök (medical devices) külön hálózati szegmensben vannak?',
-    purpose: 'Orvostechnikai eszközök hálózati izolációjának felmérése',
+    text: 'A speciális vagy operatív technológiai (OT/IoT) eszközök külön hálózati szegmensben vannak?',
+    purpose: 'Speciális eszközök hálózati izolációjának felmérése',
     type: 'yesno', expectedEvidence: 'Hálózati rajz, VLAN konfiguráció',
     riskWeight: 'High', riskDomain: 'endpoint_security',
     poorAnswer: 'Nem, közös hálózaton vannak', strongAnswer: 'Igen, dedikált szegmensben vannak',
@@ -359,12 +359,12 @@ export const questions: Question[] = [
   },
   {
     id: 'BCK-05', sectionId: 'backup',
-    text: 'Mikor történt utoljára PACS rendszer visszaállítási teszt?',
-    purpose: 'Képalkotó diagnosztikai rendszer visszaállítási képesség felmérése',
+    text: 'Mikor történt utoljára kritikus üzleti rendszer (pl. ERP / fő adatbázis) visszaállítási teszt?',
+    purpose: 'Kritikus üzleti rendszer visszaállítási képességének felmérése',
     type: 'multiple', options: ['6 hónapon belül', '12 hónapon belül', 'Több mint 1 éve', 'Soha'],
-    expectedEvidence: 'PACS restore teszt jegyzőkönyv',
+    expectedEvidence: 'Restore teszt jegyzőkönyv',
     riskWeight: 'High', riskDomain: 'backup_dr',
-    poorAnswer: 'Soha nem volt PACS restore teszt', strongAnswer: '6 hónapon belüli sikeres teszt',
+    poorAnswer: 'Soha nem volt restore teszt', strongAnswer: '6 hónapon belüli sikeres teszt',
     scoringLogic: '6 hónapon belül = 3pt, 12 hónapon belül = 2pt, soha = 0pt', maxPoints: 3,
   },
   {
@@ -400,7 +400,7 @@ export const questions: Question[] = [
   // === SECTION 8: SOC / Monitoring ===
   {
     id: 'SOC-01', sectionId: 'soc',
-    text: 'Pontosan mely naplóforrásokat (log source) gyűjti a CYMED?',
+    text: 'Pontosan mely naplóforrásokat (log source) gyűjti a Beszállító B?',
     purpose: 'Monitoring lefedettség és vakfoltok azonosítása',
     type: 'freetext', expectedEvidence: 'Naplóforrás leltár, SIEM konfiguráció',
     riskWeight: 'Critical', riskDomain: 'soc_monitoring',
@@ -499,7 +499,7 @@ export const questions: Question[] = [
   },
   {
     id: 'INC-04', sectionId: 'incident',
-    text: 'Ki jelent a DNSC / NIS hatóságok felé incidens esetén?',
+    text: 'Ki jelent az illetékes szabályozó hatóság (pl. NIS / DNSC / NCSC) felé incidens esetén?',
     purpose: 'Hatósági jelentéstételi felelősség tisztázása',
     type: 'freetext', expectedEvidence: 'NIS2 jelentéstételi eljárás',
     riskWeight: 'High', riskDomain: 'incident_ownership',
@@ -508,7 +508,7 @@ export const questions: Question[] = [
   },
   {
     id: 'INC-05', sectionId: 'incident',
-    text: 'Van-e írásban rögzített RACI mátrix az Info World és a CYMED között?',
+    text: 'Van-e írásban rögzített RACI mátrix a Beszállító A és a Beszállító B között?',
     purpose: 'Beszállítók közötti felelősségmegosztás tisztázottságának felmérése',
     type: 'yesno', expectedEvidence: 'RACI mátrix dokumentum',
     riskWeight: 'Critical', riskDomain: 'incident_ownership',
@@ -568,7 +568,7 @@ export const questions: Question[] = [
   // === SECTION 11: Compliance / NIS2 ===
   {
     id: 'NIS-01', sectionId: 'compliance',
-    text: 'Az intézmény azonosította-e magát NIS2 hatálya alá tartozó szervezetként?',
+    text: 'A szervezet azonosította-e magát NIS2 hatálya alá tartozó szervezetként?',
     purpose: 'NIS2 tudatosság és azonosítás felmérése',
     type: 'yesno', expectedEvidence: 'NIS2 besorolási dokumentáció',
     riskWeight: 'High', riskDomain: 'incident_ownership',
@@ -586,9 +586,9 @@ export const questions: Question[] = [
   },
   {
     id: 'NIS-03', sectionId: 'compliance',
-    text: 'A DNSC felé történő incidensjelentési kötelezettség és eljárás ismert és dokumentált?',
-    purpose: 'DNSC jelentéstételi felkészültség felmérése',
-    type: 'yesno', expectedEvidence: 'DNSC jelentéstételi eljárás',
+    text: 'Az illetékes hatóság (pl. NIS / DNSC) felé történő incidensjelentési kötelezettség és eljárás ismert és dokumentált?',
+    purpose: 'Hatósági jelentéstételi felkészültség felmérése',
+    type: 'yesno', expectedEvidence: 'Hatósági (NIS / DNSC) jelentéstételi eljárás',
     riskWeight: 'High', riskDomain: 'incident_ownership',
     poorAnswer: 'Nem ismert az eljárás', strongAnswer: 'Dokumentált és gyakorolt eljárás',
     scoringLogic: 'Dokumentált + gyakorolt = 2pt, dokumentált = 1pt, nincs = 0pt', maxPoints: 2,
@@ -597,7 +597,7 @@ export const questions: Question[] = [
   // === SECTION 12: Killer Questions ===
   {
     id: 'KIL-01', sectionId: 'killer',
-    text: 'Ha holnap egy ransomware támadás titkosítaná az összes szerveren lévő adatot, mennyi idő alatt tudná az intézmény visszaállítani a betegellátás folytonosságát?',
+    text: 'Ha holnap egy ransomware támadás titkosítaná az összes szerveren lévő adatot, mennyi idő alatt tudná a szervezet visszaállítani az üzletmenet folytonosságát?',
     purpose: 'Valós ransomware felkészültség és helyreállítási képesség felmérése',
     type: 'multiple', options: ['4 órán belül', '24 órán belül', '48 órán belül', '1 héten belül', 'Nem tudjuk'],
     expectedEvidence: 'Ransomware recovery runbook, restore teszt eredmények, RTO dokumentáció',
@@ -608,11 +608,11 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-02', sectionId: 'killer',
-    text: 'A szervezet képes-e önállóan (az Info World nélkül) visszaállítani a HIS rendszert egy backup-ból?',
+    text: 'A szervezet képes-e önállóan (a Beszállító A nélkül) visszaállítani a kritikus üzleti rendszert egy backup-ból?',
     purpose: 'Teljes beszállítói függőség a helyreállítás terén',
     type: 'yesno', expectedEvidence: 'Restore eljárás, belső kompetencia dokumentáció',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
-    poorAnswer: 'Nem, kizárólag az Info World képes rá', strongAnswer: 'Igen, dokumentált eljárás és képzett személyzet',
+    poorAnswer: 'Nem, kizárólag a Beszállító A képes rá', strongAnswer: 'Igen, dokumentált eljárás és képzett személyzet',
     scoringLogic: 'Igen = 3pt, részben = 1pt, nem = 0pt', maxPoints: 3,
     isKillerQuestion: true,
   },
@@ -628,7 +628,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-04', sectionId: 'killer',
-    text: 'Ha az Info World felmondaná a szerződést 30 napos határidővel, az intézmény képes lenne-e folytatni az IT működést?',
+    text: 'Ha a Beszállító A felmondaná a szerződést 30 napos határidővel, a szervezet képes lenne-e folytatni az IT működést?',
     purpose: 'Vendor lock-in és exit readiness valós felmérése',
     type: 'multiple', options: ['Igen, van exit terv', 'Részben, de kritikus kockázattal', 'Nem, teljes leállás lenne', 'Nem tudjuk'],
     expectedEvidence: 'Exit plan, átmeneti terv, alternatív beszállítói lista',
@@ -639,7 +639,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-05', sectionId: 'killer',
-    text: 'A szervezet tudja-e pontosan, hogy a CYMED SOC mit monitoroz és mit NEM?',
+    text: 'A szervezet tudja-e pontosan, hogy a Beszállító B (SOC) mit monitoroz és mit NEM?',
     purpose: 'SOC lefedettség tudatosságának felmérése',
     type: 'yesno', expectedEvidence: 'SOC scope dokumentáció, lefedettségi mátrix',
     riskWeight: 'High', riskDomain: 'soc_monitoring',
@@ -686,7 +686,7 @@ export const redFlags: RedFlag[] = [
     triggerQuestionId: 'INC-01', triggerCondition: 'empty_or_unclear',
   },
   {
-    id: 'RF-06', title: 'No written RACI between Info World and CYMED', titleHu: 'Nincs írott RACI az Info World és CYMED között',
+    id: 'RF-06', title: 'No written RACI between Beszállító A and Beszállító B', titleHu: 'Nincs írott RACI a Beszállító A és Beszállító B között',
     whyCritical: 'Felelősségi körök tisztázatlansága kritikus helyzetben döntésképtelenséghez vezet.',
     consequences: 'Felelősségi vákuum incidens esetén, egymásra mutogatás',
     immediateAction: 'RACI mátrix létrehozása és jóváhagyása mindkét féllel',
@@ -752,7 +752,7 @@ export const evidenceChecklist = [
   'Üzleti hatáselemzés (BIA)',
   'Üzletmenet-folytonossági terv (BCP)',
   'Beszállítói szerződések és SLA-k',
-  'RACI mátrix (Info World / CYMED / belső IT)',
+  'RACI mátrix (kulcsbeszállítók / belső IT)',
   'VPN konfiguráció és hozzáférési listák',
   'MFA konfiguráció bizonyíték',
   'Active Directory csoport tagság export (Domain Admins, Enterprise Admins)',
@@ -765,7 +765,7 @@ export const evidenceChecklist = [
   'Backup konfiguráció és ütemezés',
   'Immutable backup beállítás bizonyítéka',
   'Offline backup eljárás',
-  'Restore teszt jegyzőkönyvek (rendszer, PACS, SQL)',
+  'Restore teszt jegyzőkönyvek (kritikus rendszerek, adatbázisok)',
   'RTO/RPO dokumentáció',
   'Ransomware recovery runbook',
   'SOC naplóforrás leltár',
@@ -776,7 +776,7 @@ export const evidenceChecklist = [
   'Incidens osztályozási modell (P1/P2/P3)',
   'Eszkalációs mátrix',
   'NIS2 besorolás és gap elemzés',
-  'DNSC jelentéstételi eljárás',
+  'Hatósági (NIS / DNSC) jelentéstételi eljárás',
   'Vendor governance policy',
   'Exit terv dokumentáció',
   'Kockázatértékelési dokumentum',

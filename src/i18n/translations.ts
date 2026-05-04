@@ -2,8 +2,8 @@ import type { Language } from './LanguageContext';
 
 const translations = {
   // Header
-  'app.title': { hu: 'Kórházi Kiberbiztonsági Értékelés', ro: 'Evaluarea Securității Cibernetice a Spitalului' },
-  'app.subtitle': { hu: 'IT & Cybersecurity Audit Kérdőív • NIS2 / DNSC', ro: 'Chestionar Audit IT & Cybersecurity • NIS2 / DNSC' },
+  'app.title': { hu: 'IT Kiberbiztonsági Értékelés', ro: 'Evaluarea Securității Cibernetice IT' },
+  'app.subtitle': { hu: 'IT & Cybersecurity Audit Kérdőív • NIS2', ro: 'Chestionar Audit IT & Cybersecurity • NIS2' },
   'mode.executive': { hu: 'Vezetői', ro: 'Executiv' },
   'mode.detailed': { hu: 'Részletes Audit', ro: 'Audit Detaliat' },
   'btn.results': { hu: 'Eredmények', ro: 'Rezultate' },
@@ -49,8 +49,8 @@ const translations = {
 
   // Risk statements
   'risk.critical': {
-    hu: 'Az intézmény IT biztonsági helyzete kritikus szintű. Azonnali, átfogó beavatkozás szükséges a betegellátás folytonosságának biztosítása érdekében.',
-    ro: 'Situația securității IT a instituției este la nivel critic. Este necesară o intervenție imediată și cuprinzătoare pentru asigurarea continuității îngrijirii pacienților.'
+    hu: 'A szervezet IT biztonsági helyzete kritikus szintű. Azonnali, átfogó beavatkozás szükséges az üzletmenet folytonosságának biztosítása érdekében.',
+    ro: 'Situația securității IT a organizației este la nivel critic. Este necesară o intervenție imediată și cuprinzătoare pentru asigurarea continuității afacerii.'
   },
   'risk.significant': {
     hu: 'Jelentős biztonsági hiányosságok azonosíthatók, amelyek kezelése sürgős prioritást igényel.',
@@ -66,7 +66,7 @@ const translations = {
   },
   'risk.good': {
     hu: 'Az intézmény jó kontroll szintet mutat. A folyamatos fejlesztés és monitorozás fenntartása javasolt.',
-    ro: 'Instituția prezintă un nivel bun de control. Se recomandă menținerea îmbunătățirii și monitorizării continue.'
+    ro: 'Organizația prezintă un nivel bun de control. Se recomandă menținerea îmbunătățirii și monitorizării continue.'
   },
 
   // Escalation items
