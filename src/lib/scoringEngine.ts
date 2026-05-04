@@ -213,7 +213,7 @@ export function calculateResults(answers: Answers): AssessmentResult {
 
   const quickWins: string[] = [];
   if (!answers['VPN-02'] || answers['VPN-02'] === 'no') quickWins.push('MFA bevezetése minden beszállítói hozzáférésre');
-  if (!answers['INC-05'] || answers['INC-05'] === 'no') quickWins.push('RACI mátrix elkészítése Info World / CYMED között');
+  if (!answers['INC-05'] || answers['INC-05'] === 'no') quickWins.push('RACI mátrix elkészítése a kulcsbeszállítók között');
   if (!answers['INC-06'] || answers['INC-06'] === 'no') quickWins.push('P1/P2/P3 súlyossági besorolási modell létrehozása');
   if (!answers['BCK-08'] || answers['BCK-08'] === 'no') quickWins.push('Ransomware recovery runbook készítése');
   if (!answers['SOC-01'] || (typeof answers['SOC-01'] === 'string' && answers['SOC-01'].length < 10)) quickWins.push('SOC naplóforrás leltár elkészítése');
