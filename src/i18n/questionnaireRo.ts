@@ -33,8 +33,8 @@ export const sectionDescRo: Record<string, string> = {
 
 // Question text translations keyed by question ID
 export const questionTextRo: Record<string, string> = {
-  'GEN-01': 'Care sunt sistemele IT critice ale organizației din punct de vedere al îngrijirii pacienților? (HIS, PACS, LIS, RIS, sistem farmaceutic, etc.)',
-  'GEN-02': 'Ce se întâmplă dacă Furnizor A nu este disponibil timp de 24-48 de ore? Ce sisteme continuă să funcționeze și care se opresc?',
+  'GEN-01': 'Care sunt sistemele IT critice ale organizației din punct de vedere al continuității afacerii? (ex. ERP, CRM, baze de date centrale, sisteme specifice domeniului)',
+  'GEN-02': 'Ce se întâmplă dacă principalul furnizor IT (Furnizor A) nu este disponibil timp de 24-48 de ore? Ce sisteme continuă să funcționeze și care se opresc?',
   'GEN-03': 'Câte servere și endpoint-uri sunt în rețeaua organizației?',
   'GEN-04': 'Ce sisteme de operare rulează pe servere și endpoint-uri? Există sisteme end-of-life (EOL)?',
   'VEN-01': 'Ce activități realizează Furnizor A? (administrare servere, backup, restaurare, administrare SQL, actualizare OS, admin domeniu, monitorizare)',
