@@ -156,7 +156,7 @@ export const questions: Question[] = [
   // === SECTION 3: Remote Access / VPN ===
   {
     id: 'VPN-01', sectionId: 'remote_access',
-    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az intézmény hálózatához? (Beszállító A, Beszállító B, egyéb)',
+    text: 'Mely beszállítók rendelkeznek VPN hozzáféréssel az szervezet hálózatához? (Beszállító A, Beszállító B, egyéb)',
     purpose: 'Külső hozzáférések teljes feltérképezése',
     type: 'freetext', expectedEvidence: 'VPN konfiguráció, hozzáférési lista, VPN napló',
     riskWeight: 'High', riskDomain: 'access_control',
@@ -499,7 +499,7 @@ export const questions: Question[] = [
   },
   {
     id: 'INC-04', sectionId: 'incident',
-    text: 'Ki jelent a DNSC / NIS hatóságok felé incidens esetén?',
+    text: 'Ki jelent a illetékes szabályozó hatóság (pl. NIS / DNSC / NCSC) felé incidens esetén?',
     purpose: 'Hatósági jelentéstételi felelősség tisztázása',
     type: 'freetext', expectedEvidence: 'NIS2 jelentéstételi eljárás',
     riskWeight: 'High', riskDomain: 'incident_ownership',
@@ -568,7 +568,7 @@ export const questions: Question[] = [
   // === SECTION 11: Compliance / NIS2 ===
   {
     id: 'NIS-01', sectionId: 'compliance',
-    text: 'Az intézmény azonosította-e magát NIS2 hatálya alá tartozó szervezetként?',
+    text: 'A szervezet azonosította-e magát NIS2 hatálya alá tartozó szervezetként?',
     purpose: 'NIS2 tudatosság és azonosítás felmérése',
     type: 'yesno', expectedEvidence: 'NIS2 besorolási dokumentáció',
     riskWeight: 'High', riskDomain: 'incident_ownership',
@@ -586,9 +586,9 @@ export const questions: Question[] = [
   },
   {
     id: 'NIS-03', sectionId: 'compliance',
-    text: 'A DNSC felé történő incidensjelentési kötelezettség és eljárás ismert és dokumentált?',
-    purpose: 'DNSC jelentéstételi felkészültség felmérése',
-    type: 'yesno', expectedEvidence: 'DNSC jelentéstételi eljárás',
+    text: 'Az illetékes hatóság (pl. NIS / DNSC) felé történő incidensjelentési kötelezettség és eljárás ismert és dokumentált?',
+    purpose: 'Hatósági jelentéstételi felkészültség felmérése',
+    type: 'yesno', expectedEvidence: 'Hatósági (NIS / DNSC) jelentéstételi eljárás',
     riskWeight: 'High', riskDomain: 'incident_ownership',
     poorAnswer: 'Nem ismert az eljárás', strongAnswer: 'Dokumentált és gyakorolt eljárás',
     scoringLogic: 'Dokumentált + gyakorolt = 2pt, dokumentált = 1pt, nincs = 0pt', maxPoints: 2,
@@ -597,7 +597,7 @@ export const questions: Question[] = [
   // === SECTION 12: Killer Questions ===
   {
     id: 'KIL-01', sectionId: 'killer',
-    text: 'Ha holnap egy ransomware támadás titkosítaná az összes szerveren lévő adatot, mennyi idő alatt tudná az intézmény visszaállítani a betegellátás folytonosságát?',
+    text: 'Ha holnap egy ransomware támadás titkosítaná az összes szerveren lévő adatot, mennyi idő alatt tudná a szervezet visszaállítani az üzletmenet folytonosságát?',
     purpose: 'Valós ransomware felkészültség és helyreállítási képesség felmérése',
     type: 'multiple', options: ['4 órán belül', '24 órán belül', '48 órán belül', '1 héten belül', 'Nem tudjuk'],
     expectedEvidence: 'Ransomware recovery runbook, restore teszt eredmények, RTO dokumentáció',
@@ -608,7 +608,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-02', sectionId: 'killer',
-    text: 'A szervezet képes-e önállóan (a Beszállító A nélkül) visszaállítani a HIS rendszert egy backup-ból?',
+    text: 'A szervezet képes-e önállóan (a Beszállító A nélkül) visszaállítani a kritikus üzleti rendszert egy backup-ból?',
     purpose: 'Teljes beszállítói függőség a helyreállítás terén',
     type: 'yesno', expectedEvidence: 'Restore eljárás, belső kompetencia dokumentáció',
     riskWeight: 'Critical', riskDomain: 'vendor_dependency',
@@ -628,7 +628,7 @@ export const questions: Question[] = [
   },
   {
     id: 'KIL-04', sectionId: 'killer',
-    text: 'Ha a Beszállító A felmondaná a szerződést 30 napos határidővel, az intézmény képes lenne-e folytatni az IT működést?',
+    text: 'Ha a Beszállító A felmondaná a szerződést 30 napos határidővel, a szervezet képes lenne-e folytatni az IT működést?',
     purpose: 'Vendor lock-in és exit readiness valós felmérése',
     type: 'multiple', options: ['Igen, van exit terv', 'Részben, de kritikus kockázattal', 'Nem, teljes leállás lenne', 'Nem tudjuk'],
     expectedEvidence: 'Exit plan, átmeneti terv, alternatív beszállítói lista',
@@ -765,7 +765,7 @@ export const evidenceChecklist = [
   'Backup konfiguráció és ütemezés',
   'Immutable backup beállítás bizonyítéka',
   'Offline backup eljárás',
-  'Restore teszt jegyzőkönyvek (rendszer, PACS, SQL)',
+  'Restore teszt jegyzőkönyvek (kritikus rendszerek, adatbázisok)',
   'RTO/RPO dokumentáció',
   'Ransomware recovery runbook',
   'SOC naplóforrás leltár',
@@ -776,7 +776,7 @@ export const evidenceChecklist = [
   'Incidens osztályozási modell (P1/P2/P3)',
   'Eszkalációs mátrix',
   'NIS2 besorolás és gap elemzés',
-  'DNSC jelentéstételi eljárás',
+  'Hatósági (NIS / DNSC) jelentéstételi eljárás',
   'Vendor governance policy',
   'Exit terv dokumentáció',
   'Kockázatértékelési dokumentum',
