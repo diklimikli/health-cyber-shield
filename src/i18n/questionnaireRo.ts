@@ -86,7 +86,7 @@ export const questionTextRo: Record<string, string> = {
   'NIS-01': 'Organizația a efectuat o evaluare de conformitate NIS2?',
   'NIS-02': 'Există un responsabil desemnat NIS2 / CISO în cadrul organizației?',
   'NIS-03': 'Organizația a raportat vreun incident de securitate către DNSC?',
-  'NIS-04': 'Există o analiză documentată a riscurilor de securitate cibernetică pentru instituție?',
+  'NIS-04': 'Există o analiză documentată a riscurilor de securitate cibernetică pentru organizație?',
   'KIL-01': 'Cât de repede poate fi pornit sistemul HIS de la backup pe un server separat?',
   'KIL-02': 'Dacă Furnizor A este compromis, atacatorul are automat acces la rețeaua organizației?',
   'KIL-03': 'Este posibil din punct de vedere tehnic ca organizația să opereze complet fără Furnizor A?',
