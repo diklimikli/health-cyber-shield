@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { cn } from '@/lib/utils';
 import { exportPDFFromElement } from '@/lib/pdfExport';
-import { ResultsInfographic } from '@/components/ResultsInfographic';
 
 
 export function ResultsDashboard() {
@@ -263,8 +262,6 @@ export function ResultsDashboard() {
           </CardContent>
         </Card>
 
-        {/* Infographic */}
-        <ResultsInfographic results={results} />
       </div>
     </div>
   );
