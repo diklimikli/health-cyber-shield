@@ -48,17 +48,17 @@ export interface RedFlag {
 }
 
 export const sections: Section[] = [
-  { id: 'general', title: 'General IT Landscape', titleHu: 'Általános IT infrastruktúra és kritikus rendszerek', description: 'Kritikus rendszerek, IT környezet áttekintése', icon: 'Server', order: 1 },
-  { id: 'vendor', title: 'Vendor Dependency', titleHu: 'Beszállítói függőség és operatív kontroll', description: 'Info World és egyéb beszállítói függőség feltérképezése', icon: 'Link', order: 2 },
+  { id: 'general', title: 'General IT Landscape', titleHu: 'Általános IT infrastruktúra és kritikus rendszerek', description: 'Kritikus rendszerek és IT környezet áttekintése', icon: 'Server', order: 1 },
+  { id: 'vendor', title: 'Vendor Dependency', titleHu: 'Beszállítói függőség és operatív kontroll', description: 'IT beszállítói függőség feltérképezése', icon: 'Link', order: 2 },
   { id: 'remote_access', title: 'Remote Access / VPN', titleHu: 'Távoli hozzáférés / VPN / harmadik fél hozzáférés', description: 'VPN, távoli hozzáférés és külső fél hozzáférési kockázatok', icon: 'Wifi', order: 3 },
   { id: 'identity', title: 'Identity / AD / PAM', titleHu: 'Identitáskezelés / Active Directory / kiemelt jogosultságok', description: 'AD, GPO, jogosultságkezelés, admin tiering', icon: 'Shield', order: 4 },
   { id: 'endpoint', title: 'Endpoint / Host Security', titleHu: 'Végpont- és hosztbiztonság / tűzfal / EDR', description: 'Végpontvédelem, tűzfal, EDR/XDR megoldások', icon: 'Monitor', order: 5 },
   { id: 'network', title: 'Network Segmentation', titleHu: 'Hálózati szegmentáció és laterális mozgás kontroll', description: 'Hálózati szegmentáció, VLAN-ok, zónák', icon: 'Network', order: 6 },
   { id: 'backup', title: 'Backup / DR', titleHu: 'Mentés / visszaállítás / katasztrófa-elhárítás', description: 'Backup, restore, DR, ransomware recovery', icon: 'Database', order: 7 },
-  { id: 'soc', title: 'SOC / Monitoring', titleHu: 'SOC / monitoring / naplókezelés / detektálás', description: 'CYMED SOC, monitoring, naplóforrások, lefedettség', icon: 'Eye', order: 8 },
-  { id: 'incident', title: 'Incident Response', titleHu: 'Incidenskezelés / felelősség / RACI / jelentéstétel', description: 'Incidenskezelési felelősség, RACI, DNSC jelentéstétel', icon: 'AlertTriangle', order: 9 },
+  { id: 'soc', title: 'SOC / Monitoring', titleHu: 'SOC / monitoring / naplókezelés / detektálás', description: 'SOC, monitoring, naplóforrások, lefedettség', icon: 'Eye', order: 8 },
+  { id: 'incident', title: 'Incident Response', titleHu: 'Incidenskezelés / felelősség / RACI / jelentéstétel', description: 'Incidenskezelési felelősség, RACI, hatósági jelentéstétel', icon: 'AlertTriangle', order: 9 },
   { id: 'contractual', title: 'Contracts / SLA', titleHu: 'Szerződések / SLA / beszállítói irányítás / exit terv', description: 'SLA, szerződések, exit stratégia, vendor governance', icon: 'FileText', order: 10 },
-  { id: 'compliance', title: 'Compliance / NIS2', titleHu: 'Megfelelőség / NIS2 / DNSC-releváns kérdések', description: 'NIS2, DNSC követelmények, megfelelőségi státusz', icon: 'Scale', order: 11 },
+  { id: 'compliance', title: 'Compliance / NIS2', titleHu: 'Megfelelőség / NIS2 / szabályozási kérdések', description: 'NIS2 és egyéb szabályozási követelmények, megfelelőségi státusz', icon: 'Scale', order: 11 },
   { id: 'killer', title: 'Killer Questions', titleHu: 'Kritikus döntéstámogató kérdések', description: 'Azonnali kockázatot jelző kiemelt kérdések', icon: 'Zap', order: 12 },
 ];
 
