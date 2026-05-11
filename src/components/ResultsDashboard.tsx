@@ -12,7 +12,7 @@ import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowL
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { cn } from '@/lib/utils';
-import { exportPDFFromElement } from '@/lib/pdfExport';
+import { exportResultsPDF } from '@/lib/pdfExport';
 
 
 export function ResultsDashboard() {
