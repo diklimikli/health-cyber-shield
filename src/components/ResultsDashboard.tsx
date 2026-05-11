@@ -31,10 +31,10 @@ export function ResultsDashboard() {
   };
 
   const handleExport = async (filename: string) => {
-    if (!contentRef.current || exporting) return;
+    if (exporting) return;
     setExporting(true);
     try {
-      await exportPDFFromElement(contentRef.current, filename);
+      await exportResultsPDF(results, language, filename);
     } finally {
       setExporting(false);
     }
