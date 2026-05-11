@@ -17,13 +17,18 @@ async function loadBanner(): Promise<{ dataUrl: string; ratio: number }> {
   canvas.width = img.naturalWidth;
   canvas.height = img.naturalHeight;
   const ctx = canvas.getContext('2d');
-  ctx?.drawImage(img, 0, 0);
+  ctx!.fillStyle = '#ffffff';
+  ctx!.fillRect(0, 0, canvas.width, canvas.height);
+  ctx!.drawImage(img, 0, 0);
   bannerCache = {
-    dataUrl: canvas.toDataURL('image/png'),
+    dataUrl: canvas.toDataURL('image/jpeg', 0.85),
     ratio: img.naturalHeight / img.naturalWidth,
   };
   return bannerCache;
 }
+
+const JPEG_QUALITY = 0.7;
+const RENDER_SCALE = 1.5;
 
 export async function exportPDFFromElement(element: HTMLElement, filename: string) {
   const pageWidth = 210;
@@ -33,13 +38,13 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
 
   const banner = await loadBanner();
   const bannerHeight = contentWidth * banner.ratio;
-  const headerBottom = margin + bannerHeight + 4; // 4mm gap below banner
+  const headerBottom = margin + bannerHeight + 4;
 
   const children = Array.from(element.children) as HTMLElement[];
-  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
 
   const drawHeader = () => {
-    pdf.addImage(banner.dataUrl, 'PNG', margin, margin, contentWidth, bannerHeight);
+    pdf.addImage(banner.dataUrl, 'JPEG', margin, margin, contentWidth, bannerHeight);
   };
 
   drawHeader();
@@ -50,14 +55,14 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
     const child = children[i];
 
     const canvas = await html2canvas(child, {
-      scale: 2,
+      scale: RENDER_SCALE,
       useCORS: true,
       logging: false,
       backgroundColor: '#ffffff',
       windowWidth: element.scrollWidth,
     });
 
-    const imgData = canvas.toDataURL('image/png');
+    const imgData = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
     const imgHeight = (canvas.height * contentWidth) / canvas.width;
 
     if (!isFirstPage && currentY + imgHeight > pageHeight - margin) {
@@ -87,16 +92,18 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
         sliceCanvas.height = Math.ceil(sliceHeightPx);
         const ctx = sliceCanvas.getContext('2d');
         if (ctx) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
           ctx.drawImage(canvas, 0, srcY, canvas.width, sliceHeightPx, 0, 0, canvas.width, sliceHeightPx);
-          const sliceData = sliceCanvas.toDataURL('image/png');
-          pdf.addImage(sliceData, 'PNG', margin, currentY, contentWidth, sliceHeightMm);
+          const sliceData = sliceCanvas.toDataURL('image/jpeg', JPEG_QUALITY);
+          pdf.addImage(sliceData, 'JPEG', margin, currentY, contentWidth, sliceHeightMm);
         }
 
         srcY += sliceHeightPx;
         currentY += sliceHeightMm;
       }
     } else {
-      pdf.addImage(imgData, 'PNG', margin, currentY, contentWidth, imgHeight);
+      pdf.addImage(imgData, 'JPEG', margin, currentY, contentWidth, imgHeight);
       currentY += imgHeight + 3;
     }
 
