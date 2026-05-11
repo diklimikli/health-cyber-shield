@@ -1,5 +1,29 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import bannerUrl from '@/assets/pdf-header-banner.png';
+
+// Preload banner once and cache its data URL + aspect ratio
+let bannerCache: { dataUrl: string; ratio: number } | null = null;
+async function loadBanner(): Promise<{ dataUrl: string; ratio: number }> {
+  if (bannerCache) return bannerCache;
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.src = bannerUrl;
+  await new Promise<void>((resolve, reject) => {
+    img.onload = () => resolve();
+    img.onerror = () => reject(new Error('Banner load failed'));
+  });
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx?.drawImage(img, 0, 0);
+  bannerCache = {
+    dataUrl: canvas.toDataURL('image/png'),
+    ratio: img.naturalHeight / img.naturalWidth,
+  };
+  return bannerCache;
+}
 
 export async function exportPDFFromElement(element: HTMLElement, filename: string) {
   const pageWidth = 210;
@@ -7,11 +31,19 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
   const margin = 8;
   const contentWidth = pageWidth - margin * 2;
 
-  // Find all direct child cards/sections to render each independently
+  const banner = await loadBanner();
+  const bannerHeight = contentWidth * banner.ratio;
+  const headerBottom = margin + bannerHeight + 4; // 4mm gap below banner
+
   const children = Array.from(element.children) as HTMLElement[];
   const pdf = new jsPDF('p', 'mm', 'a4');
 
-  let currentY = margin;
+  const drawHeader = () => {
+    pdf.addImage(banner.dataUrl, 'PNG', margin, margin, contentWidth, bannerHeight);
+  };
+
+  drawHeader();
+  let currentY = headerBottom;
   let isFirstPage = true;
 
   for (let i = 0; i < children.length; i++) {
@@ -28,31 +60,28 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
     const imgData = canvas.toDataURL('image/png');
     const imgHeight = (canvas.height * contentWidth) / canvas.width;
 
-    // If this block doesn't fit on current page, start a new page
     if (!isFirstPage && currentY + imgHeight > pageHeight - margin) {
       pdf.addPage();
-      currentY = margin;
+      drawHeader();
+      currentY = headerBottom;
     }
 
-    // If a single block is taller than a page, render it across pages
-    if (imgHeight > pageHeight - margin * 2) {
-      // Render oversized block across multiple pages
-      const usableHeight = pageHeight - margin * 2;
+    if (imgHeight > pageHeight - headerBottom - margin) {
+      const pxPerMm = canvas.height / imgHeight;
       let srcY = 0;
       const totalSrcHeight = canvas.height;
-      const pxPerMm = canvas.height / imgHeight;
 
       while (srcY < totalSrcHeight) {
         if (srcY > 0) {
           pdf.addPage();
-          currentY = margin;
+          drawHeader();
+          currentY = headerBottom;
         }
 
         const remainingMm = pageHeight - currentY - margin;
         const sliceHeightPx = Math.min(remainingMm * pxPerMm, totalSrcHeight - srcY);
         const sliceHeightMm = sliceHeightPx / pxPerMm;
 
-        // Create a cropped canvas for this slice
         const sliceCanvas = document.createElement('canvas');
         sliceCanvas.width = canvas.width;
         sliceCanvas.height = Math.ceil(sliceHeightPx);
@@ -68,7 +97,7 @@ export async function exportPDFFromElement(element: HTMLElement, filename: strin
       }
     } else {
       pdf.addImage(imgData, 'PNG', margin, currentY, contentWidth, imgHeight);
-      currentY += imgHeight + 3; // 3mm gap between sections
+      currentY += imgHeight + 3;
     }
 
     isFirstPage = false;
