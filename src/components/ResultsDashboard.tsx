@@ -12,7 +12,7 @@ import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowL
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { cn } from '@/lib/utils';
-import { exportPDFFromElement } from '@/lib/pdfExport';
+import { exportResultsPDF } from '@/lib/pdfExport';
 
 
 export function ResultsDashboard() {
@@ -31,10 +31,10 @@ export function ResultsDashboard() {
   };
 
   const handleExport = async (filename: string) => {
-    if (!contentRef.current || exporting) return;
+    if (exporting) return;
     setExporting(true);
     try {
-      await exportPDFFromElement(contentRef.current, filename);
+      await exportResultsPDF(results, language, filename);
     } finally {
       setExporting(false);
     }
