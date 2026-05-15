@@ -63,25 +63,25 @@ const esc = (s: string) =>
 
 // ---------- Localization helpers ----------
 function trDomain(labelHu: string, lang: Language) {
-  return lang === 'ro' ? domainLabelRo[labelHu] || labelHu : labelHu;
+  return pickI18n(domainLabelRo, domainLabelEn, labelHu, labelHu, lang);
 }
 function trMaturity(label: string, lang: Language) {
-  return lang === 'ro' ? maturityLabelRo[label] || label : label;
+  return pickI18n(maturityLabelRo, maturityLabelEn, label, label, lang);
 }
 function trQuickWin(w: string, lang: Language) {
-  return lang === 'ro' ? quickWinsRo[w] || w : w;
+  return pickI18n(quickWinsRo, quickWinsEn, w, w, lang);
 }
 function trRedFlagTitle(rf: { id: string; titleHu: string }, lang: Language) {
-  return lang === 'ro' ? redFlagTitleRo[rf.id] || rf.titleHu : rf.titleHu;
+  return pickI18n(redFlagTitleRo, redFlagTitleEn, rf.id, rf.titleHu, lang);
 }
 function trRedFlagWhy(rf: { id: string; whyCritical: string }, lang: Language) {
-  return lang === 'ro' ? redFlagWhyCriticalRo[rf.id] || rf.whyCritical : rf.whyCritical;
+  return pickI18n(redFlagWhyCriticalRo, redFlagWhyCriticalEn, rf.id, rf.whyCritical, lang);
 }
 function trRedFlagCons(rf: { id: string; consequences: string }, lang: Language) {
-  return lang === 'ro' ? redFlagConsequencesRo[rf.id] || rf.consequences : rf.consequences;
+  return pickI18n(redFlagConsequencesRo, redFlagConsequencesEn, rf.id, rf.consequences, lang);
 }
 function trRedFlagAction(rf: { id: string; immediateAction: string }, lang: Language) {
-  return lang === 'ro' ? redFlagImmediateActionRo[rf.id] || rf.immediateAction : rf.immediateAction;
+  return pickI18n(redFlagImmediateActionRo, redFlagImmediateActionEn, rf.id, rf.immediateAction, lang);
 }
 
 function getRiskStatement(score: number, lang: Language) {
