@@ -4,6 +4,7 @@ import { LanguageProvider } from '@/i18n/LanguageContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { sectionTitleRo, sectionDescRo } from '@/i18n/questionnaireRo';
+import { sectionTitleEn, sectionDescEn } from '@/i18n/questionnaireEn';
 import { sections, questions } from '@/data/questionnaireData';
 import { SectionNav } from '@/components/SectionNav';
 import { QuestionCard } from '@/components/QuestionCard';
