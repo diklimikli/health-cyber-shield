@@ -43,7 +43,7 @@ function getScoreColor(pct: number): string {
 
 export function ResultsInfographic({ results }: Props) {
   const { language } = useLanguage();
-  const domainShort = language === 'ro' ? domainShortRo : DOMAIN_SHORT_HU;
+  const domainShort = language === 'ro' ? domainShortRo : language === 'en' ? domainShortEn : DOMAIN_SHORT_HU;
 
   const radarData = useMemo(() =>
     results.domainScores.map(ds => ({
