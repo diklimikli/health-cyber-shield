@@ -6,6 +6,7 @@ import type { AssessmentResult } from '@/lib/scoringEngine';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { domainShortRo, domainLabelRo, maturityLabelRo } from '@/i18n/questionnaireRo';
+import { domainShortEn, maturityLabelEn } from '@/i18n/questionnaireEn';
 import { cn } from '@/lib/utils';
 
 interface Props {
