@@ -3,6 +3,7 @@ import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { questionTextRo, questionPurposeRo, questionPoorAnswerRo, questionStrongAnswerRo, questionExpectedEvidenceRo, optionTranslationsRo } from '@/i18n/questionnaireRo';
+import { questionTextEn, questionPurposeEn, questionPoorAnswerEn, questionStrongAnswerEn, questionExpectedEvidenceEn, optionTranslationsEn } from '@/i18n/questionnaireEn';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
