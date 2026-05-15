@@ -36,8 +36,8 @@ function QuestionnaireContent() {
     ? sectionQuestions.filter(q => q.riskWeight === 'Critical' || q.isKillerQuestion)
     : sectionQuestions;
 
-  const sectionTitle = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : section.titleHu;
-  const sectionDesc = language === 'ro' ? (sectionDescRo[section.description] || section.description) : section.description;
+  const sectionTitle = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : language === 'en' ? (sectionTitleEn[section.titleHu] || section.titleHu) : section.titleHu;
+  const sectionDesc = language === 'ro' ? (sectionDescRo[section.description] || section.description) : language === 'en' ? (sectionDescEn[section.description] || section.description) : section.description;
 
   return (
     <div className="space-y-4">
