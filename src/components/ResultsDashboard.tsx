@@ -3,6 +3,7 @@ import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { redFlagTitleRo, redFlagWhyCriticalRo, redFlagConsequencesRo, redFlagImmediateActionRo, maturityLabelRo, maturityDescRo, domainLabelRo, evidenceChecklistRo, quickWinsRo } from '@/i18n/questionnaireRo';
+import { redFlagTitleEn, redFlagWhyCriticalEn, redFlagConsequencesEn, redFlagImmediateActionEn, maturityLabelEn, maturityDescEn, domainLabelEn, evidenceChecklistEn, quickWinsEn } from '@/i18n/questionnaireEn';
 import { calculateResults } from '@/lib/scoringEngine';
 import { scoringWeights, maturityLevels, redFlags, evidenceChecklist, questions } from '@/data/questionnaireData';
 import { Badge } from '@/components/ui/badge';
