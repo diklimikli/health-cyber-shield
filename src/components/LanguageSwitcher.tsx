@@ -2,13 +2,13 @@ import { Globe } from 'lucide-react';
 import { useLanguage, type Language } from '@/i18n/LanguageContext';
 import { cn } from '@/lib/utils';
 
-const flags: Record<Language, string> = { hu: '🇭🇺', ro: '🇷🇴' };
+const flags: Record<Language, string> = { hu: '🇭🇺', ro: '🇷🇴', en: '🇬🇧' };
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
   return (
     <div className="flex items-center gap-1 bg-secondary rounded-md p-0.5">
-      {(['hu', 'ro'] as Language[]).map(lang => (
+      {(['hu', 'ro', 'en'] as Language[]).map(lang => (
         <button
           key={lang}
           onClick={() => setLanguage(lang)}
