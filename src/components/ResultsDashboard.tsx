@@ -41,11 +41,14 @@ export function ResultsDashboard() {
     }
   };
 
-  const trMaturityLabel = (label: string) => language === 'ro' ? (maturityLabelRo[label] || label) : label;
-  const trMaturityDesc = (desc: string) => language === 'ro' ? (maturityDescRo[desc] || desc) : desc;
-  const trDomainLabel = (labelHu: string) => language === 'ro' ? (domainLabelRo[labelHu] || labelHu) : labelHu;
-  const trRedFlagTitle = (rf: { id: string; titleHu: string }) => language === 'ro' ? (redFlagTitleRo[rf.id] || rf.titleHu) : rf.titleHu;
-  const trQuickWin = (w: string) => language === 'ro' ? (quickWinsRo[w] || w) : w;
+  const pickStr = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string) =>
+    language === 'ro' ? (ro[key] || fb) : language === 'en' ? (en[key] || fb) : fb;
+
+  const trMaturityLabel = (label: string) => pickStr(maturityLabelRo, maturityLabelEn, label, label);
+  const trMaturityDesc = (desc: string) => pickStr(maturityDescRo, maturityDescEn, desc, desc);
+  const trDomainLabel = (labelHu: string) => pickStr(domainLabelRo, domainLabelEn, labelHu, labelHu);
+  const trRedFlagTitle = (rf: { id: string; titleHu: string }) => pickStr(redFlagTitleRo, redFlagTitleEn, rf.id, rf.titleHu);
+  const trQuickWin = (w: string) => pickStr(quickWinsRo, quickWinsEn, w, w);
 
   const getRiskStatement = () => {
     if (results.totalScore <= 25) return t('risk.critical', language);
@@ -55,8 +58,8 @@ export function ResultsDashboard() {
     return t('risk.good', language);
   };
 
-  const evChecklist = language === 'ro' ? evidenceChecklistRo : evidenceChecklist;
-  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : 'it_biztonsagi_ertekeles.pdf';
+  const evChecklist = language === 'ro' ? evidenceChecklistRo : language === 'en' ? evidenceChecklistEn : evidenceChecklist;
+  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : language === 'en' ? 'it_security_assessment.pdf' : 'it_biztonsagi_ertekeles.pdf';
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
