@@ -26,13 +26,17 @@ export function QuestionCard({ question, index }: Props) {
     Critical: 'bg-destructive/20 text-destructive',
   };
 
-  const qText = language === 'ro' ? (questionTextRo[question.id] || question.text) : question.text;
-  const qPurpose = language === 'ro' ? (questionPurposeRo[question.id] || question.purpose) : question.purpose;
-  const qPoor = language === 'ro' ? (questionPoorAnswerRo[question.id] || question.poorAnswer) : question.poorAnswer;
-  const qStrong = language === 'ro' ? (questionStrongAnswerRo[question.id] || question.strongAnswer) : question.strongAnswer;
-  const qEvidence = language === 'ro' ? (questionExpectedEvidenceRo[question.id] || question.expectedEvidence) : question.expectedEvidence;
+  const pick = <T,>(roMap: Record<string, T>, enMap: Record<string, T>, key: string, fallback: T): T =>
+    language === 'ro' ? (roMap[key] ?? fallback) : language === 'en' ? (enMap[key] ?? fallback) : fallback;
 
-  const trOpt = (opt: string) => language === 'ro' ? (optionTranslationsRo[opt] || opt) : opt;
+  const qText = pick(questionTextRo, questionTextEn, question.id, question.text);
+  const qPurpose = pick(questionPurposeRo, questionPurposeEn, question.id, question.purpose);
+  const qPoor = pick(questionPoorAnswerRo, questionPoorAnswerEn, question.id, question.poorAnswer);
+  const qStrong = pick(questionStrongAnswerRo, questionStrongAnswerEn, question.id, question.strongAnswer);
+  const qEvidence = pick(questionExpectedEvidenceRo, questionExpectedEvidenceEn, question.id, question.expectedEvidence);
+
+  const trOpt = (opt: string) => language === 'ro' ? (optionTranslationsRo[opt] || opt) : language === 'en' ? (optionTranslationsEn[opt] || opt) : opt;
+
 
   return (
     <div className={cn(
