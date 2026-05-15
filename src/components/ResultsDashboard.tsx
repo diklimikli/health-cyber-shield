@@ -3,6 +3,7 @@ import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { redFlagTitleRo, redFlagWhyCriticalRo, redFlagConsequencesRo, redFlagImmediateActionRo, maturityLabelRo, maturityDescRo, domainLabelRo, evidenceChecklistRo, quickWinsRo } from '@/i18n/questionnaireRo';
+import { redFlagTitleEn, redFlagWhyCriticalEn, redFlagConsequencesEn, redFlagImmediateActionEn, maturityLabelEn, maturityDescEn, domainLabelEn, evidenceChecklistEn, quickWinsEn } from '@/i18n/questionnaireEn';
 import { calculateResults } from '@/lib/scoringEngine';
 import { scoringWeights, maturityLevels, redFlags, evidenceChecklist, questions } from '@/data/questionnaireData';
 import { Badge } from '@/components/ui/badge';
@@ -40,11 +41,14 @@ export function ResultsDashboard() {
     }
   };
 
-  const trMaturityLabel = (label: string) => language === 'ro' ? (maturityLabelRo[label] || label) : label;
-  const trMaturityDesc = (desc: string) => language === 'ro' ? (maturityDescRo[desc] || desc) : desc;
-  const trDomainLabel = (labelHu: string) => language === 'ro' ? (domainLabelRo[labelHu] || labelHu) : labelHu;
-  const trRedFlagTitle = (rf: { id: string; titleHu: string }) => language === 'ro' ? (redFlagTitleRo[rf.id] || rf.titleHu) : rf.titleHu;
-  const trQuickWin = (w: string) => language === 'ro' ? (quickWinsRo[w] || w) : w;
+  const pickStr = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string) =>
+    language === 'ro' ? (ro[key] || fb) : language === 'en' ? (en[key] || fb) : fb;
+
+  const trMaturityLabel = (label: string) => pickStr(maturityLabelRo, maturityLabelEn, label, label);
+  const trMaturityDesc = (desc: string) => pickStr(maturityDescRo, maturityDescEn, desc, desc);
+  const trDomainLabel = (labelHu: string) => pickStr(domainLabelRo, domainLabelEn, labelHu, labelHu);
+  const trRedFlagTitle = (rf: { id: string; titleHu: string }) => pickStr(redFlagTitleRo, redFlagTitleEn, rf.id, rf.titleHu);
+  const trQuickWin = (w: string) => pickStr(quickWinsRo, quickWinsEn, w, w);
 
   const getRiskStatement = () => {
     if (results.totalScore <= 25) return t('risk.critical', language);
@@ -54,8 +58,8 @@ export function ResultsDashboard() {
     return t('risk.good', language);
   };
 
-  const evChecklist = language === 'ro' ? evidenceChecklistRo : evidenceChecklist;
-  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : 'it_biztonsagi_ertekeles.pdf';
+  const evChecklist = language === 'ro' ? evidenceChecklistRo : language === 'en' ? evidenceChecklistEn : evidenceChecklist;
+  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : language === 'en' ? 'it_security_assessment.pdf' : 'it_biztonsagi_ertekeles.pdf';
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -168,13 +172,13 @@ export function ResultsDashboard() {
                       <AlertTriangle className="w-4 h-4" /> {trRedFlagTitle(rf)}
                     </h4>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <strong>{t('results.whyCritical', language)}</strong> {language === 'ro' ? (redFlagWhyCriticalRo[rf.id] || rf.whyCritical) : rf.whyCritical}
+                      <strong>{t('results.whyCritical', language)}</strong> {pickStr(redFlagWhyCriticalRo, redFlagWhyCriticalEn, rf.id, rf.whyCritical)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <strong>{t('results.consequences', language)}</strong> {language === 'ro' ? (redFlagConsequencesRo[rf.id] || rf.consequences) : rf.consequences}
+                      <strong>{t('results.consequences', language)}</strong> {pickStr(redFlagConsequencesRo, redFlagConsequencesEn, rf.id, rf.consequences)}
                     </p>
                     <p className="text-xs text-foreground mt-1 font-medium">
-                      <strong>{t('results.immediateAction', language)}</strong> {language === 'ro' ? (redFlagImmediateActionRo[rf.id] || rf.immediateAction) : rf.immediateAction}
+                      <strong>{t('results.immediateAction', language)}</strong> {pickStr(redFlagImmediateActionRo, redFlagImmediateActionEn, rf.id, rf.immediateAction)}
                     </p>
                   </div>
                 ))}

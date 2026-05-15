@@ -14,7 +14,20 @@ import {
   evidenceChecklistRo,
   quickWinsRo,
 } from '@/i18n/questionnaireRo';
+import {
+  redFlagTitleEn,
+  redFlagWhyCriticalEn,
+  redFlagConsequencesEn,
+  redFlagImmediateActionEn,
+  maturityLabelEn,
+  domainLabelEn,
+  evidenceChecklistEn,
+  quickWinsEn,
+} from '@/i18n/questionnaireEn';
 import { evidenceChecklist } from '@/data/questionnaireData';
+
+const pickI18n = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string, lang: Language) =>
+  lang === 'ro' ? (ro[key] || fb) : lang === 'en' ? (en[key] || fb) : fb;
 
 // ---------- Banner cache ----------
 let bannerCache: { dataUrl: string; ratio: number } | null = null;
@@ -50,25 +63,25 @@ const esc = (s: string) =>
 
 // ---------- Localization helpers ----------
 function trDomain(labelHu: string, lang: Language) {
-  return lang === 'ro' ? domainLabelRo[labelHu] || labelHu : labelHu;
+  return pickI18n(domainLabelRo, domainLabelEn, labelHu, labelHu, lang);
 }
 function trMaturity(label: string, lang: Language) {
-  return lang === 'ro' ? maturityLabelRo[label] || label : label;
+  return pickI18n(maturityLabelRo, maturityLabelEn, label, label, lang);
 }
 function trQuickWin(w: string, lang: Language) {
-  return lang === 'ro' ? quickWinsRo[w] || w : w;
+  return pickI18n(quickWinsRo, quickWinsEn, w, w, lang);
 }
 function trRedFlagTitle(rf: { id: string; titleHu: string }, lang: Language) {
-  return lang === 'ro' ? redFlagTitleRo[rf.id] || rf.titleHu : rf.titleHu;
+  return pickI18n(redFlagTitleRo, redFlagTitleEn, rf.id, rf.titleHu, lang);
 }
 function trRedFlagWhy(rf: { id: string; whyCritical: string }, lang: Language) {
-  return lang === 'ro' ? redFlagWhyCriticalRo[rf.id] || rf.whyCritical : rf.whyCritical;
+  return pickI18n(redFlagWhyCriticalRo, redFlagWhyCriticalEn, rf.id, rf.whyCritical, lang);
 }
 function trRedFlagCons(rf: { id: string; consequences: string }, lang: Language) {
-  return lang === 'ro' ? redFlagConsequencesRo[rf.id] || rf.consequences : rf.consequences;
+  return pickI18n(redFlagConsequencesRo, redFlagConsequencesEn, rf.id, rf.consequences, lang);
 }
 function trRedFlagAction(rf: { id: string; immediateAction: string }, lang: Language) {
-  return lang === 'ro' ? redFlagImmediateActionRo[rf.id] || rf.immediateAction : rf.immediateAction;
+  return pickI18n(redFlagImmediateActionRo, redFlagImmediateActionEn, rf.id, rf.immediateAction, lang);
 }
 
 function getRiskStatement(score: number, lang: Language) {
@@ -137,18 +150,21 @@ const COMMON_STYLE = (gradient: string) => `
 `;
 
 function buildBlocks(results: AssessmentResult, lang: Language): string[] {
-  const checklist = lang === 'ro' ? evidenceChecklistRo : evidenceChecklist;
+  const checklist = lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : evidenceChecklist;
   const escalationItems = [1, 2, 3, 4, 5, 6, 7].map(n => esc(t(`esc.${n}` as any, lang)));
 
-  const today = new Date().toLocaleDateString(lang === 'ro' ? 'ro-RO' : 'hu-HU');
-  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
-  const dateLabel = lang === 'ro' ? 'Data' : 'Dátum';
-  const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : 'Biztonsági Mutató';
-  const statementLabel = lang === 'ro' ? 'Declarație de risc real' : 'Valós kockázati nyilatkozat';
-  const checklistColLabel = lang === 'ro' ? 'Cerință / Document' : 'Követelmény / Dokumentum';
+  const localeCode = lang === 'ro' ? 'ro-RO' : lang === 'en' ? 'en-US' : 'hu-HU';
+  const today = new Date().toLocaleDateString(localeCode);
+  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
+  const dateLabel = lang === 'ro' ? 'Data' : lang === 'en' ? 'Date' : 'Dátum';
+  const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : lang === 'en' ? 'Security Indicator' : 'Biztonsági Mutató';
+  const statementLabel = lang === 'ro' ? 'Declarație de risc real' : lang === 'en' ? 'Real risk statement' : 'Valós kockázati nyilatkozat';
+  const checklistColLabel = lang === 'ro' ? 'Cerință / Document' : lang === 'en' ? 'Requirement / Document' : 'Követelmény / Dokumentum';
   const checklistDesc =
     lang === 'ro'
       ? 'Documentele și configurațiile de solicitat pentru a urmări procesul de remediere.'
+      : lang === 'en'
+      ? 'Documents and configurations to request for tracking the remediation process.'
       : 'Az audit javítási folyamatának nyomon követéséhez bekérendő dokumentumok és konfigurációk listája.';
 
   const blocks: string[] = [];

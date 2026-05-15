@@ -4,6 +4,7 @@ import { LanguageProvider } from '@/i18n/LanguageContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
 import { sectionTitleRo, sectionDescRo } from '@/i18n/questionnaireRo';
+import { sectionTitleEn, sectionDescEn } from '@/i18n/questionnaireEn';
 import { sections, questions } from '@/data/questionnaireData';
 import { SectionNav } from '@/components/SectionNav';
 import { QuestionCard } from '@/components/QuestionCard';
@@ -35,8 +36,8 @@ function QuestionnaireContent() {
     ? sectionQuestions.filter(q => q.riskWeight === 'Critical' || q.isKillerQuestion)
     : sectionQuestions;
 
-  const sectionTitle = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : section.titleHu;
-  const sectionDesc = language === 'ro' ? (sectionDescRo[section.description] || section.description) : section.description;
+  const sectionTitle = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : language === 'en' ? (sectionTitleEn[section.titleHu] || section.titleHu) : section.titleHu;
+  const sectionDesc = language === 'ro' ? (sectionDescRo[section.description] || section.description) : language === 'en' ? (sectionDescEn[section.description] || section.description) : section.description;
 
   return (
     <div className="space-y-4">

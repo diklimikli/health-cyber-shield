@@ -2,6 +2,7 @@ import { sections } from '@/data/questionnaireData';
 import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { sectionTitleRo } from '@/i18n/questionnaireRo';
+import { sectionTitleEn } from '@/i18n/questionnaireEn';
 import { cn } from '@/lib/utils';
 import { CheckCircle, Circle } from 'lucide-react';
 import { questions } from '@/data/questionnaireData';
@@ -19,7 +20,7 @@ export function SectionNav() {
           const total = sectionQuestions.length;
           const isComplete = answered === total && total > 0;
 
-          const title = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : section.titleHu;
+          const title = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : language === 'en' ? (sectionTitleEn[section.titleHu] || section.titleHu) : section.titleHu;
 
           return (
             <button
