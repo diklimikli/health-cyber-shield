@@ -172,13 +172,13 @@ export function ResultsDashboard() {
                       <AlertTriangle className="w-4 h-4" /> {trRedFlagTitle(rf)}
                     </h4>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <strong>{t('results.whyCritical', language)}</strong> {language === 'ro' ? (redFlagWhyCriticalRo[rf.id] || rf.whyCritical) : rf.whyCritical}
+                      <strong>{t('results.whyCritical', language)}</strong> {pickStr(redFlagWhyCriticalRo, redFlagWhyCriticalEn, rf.id, rf.whyCritical)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      <strong>{t('results.consequences', language)}</strong> {language === 'ro' ? (redFlagConsequencesRo[rf.id] || rf.consequences) : rf.consequences}
+                      <strong>{t('results.consequences', language)}</strong> {pickStr(redFlagConsequencesRo, redFlagConsequencesEn, rf.id, rf.consequences)}
                     </p>
                     <p className="text-xs text-foreground mt-1 font-medium">
-                      <strong>{t('results.immediateAction', language)}</strong> {language === 'ro' ? (redFlagImmediateActionRo[rf.id] || rf.immediateAction) : rf.immediateAction}
+                      <strong>{t('results.immediateAction', language)}</strong> {pickStr(redFlagImmediateActionRo, redFlagImmediateActionEn, rf.id, rf.immediateAction)}
                     </p>
                   </div>
                 ))}
