@@ -14,7 +14,20 @@ import {
   evidenceChecklistRo,
   quickWinsRo,
 } from '@/i18n/questionnaireRo';
+import {
+  redFlagTitleEn,
+  redFlagWhyCriticalEn,
+  redFlagConsequencesEn,
+  redFlagImmediateActionEn,
+  maturityLabelEn,
+  domainLabelEn,
+  evidenceChecklistEn,
+  quickWinsEn,
+} from '@/i18n/questionnaireEn';
 import { evidenceChecklist } from '@/data/questionnaireData';
+
+const pickI18n = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string, lang: Language) =>
+  lang === 'ro' ? (ro[key] || fb) : lang === 'en' ? (en[key] || fb) : fb;
 
 // ---------- Banner cache ----------
 let bannerCache: { dataUrl: string; ratio: number } | null = null;
