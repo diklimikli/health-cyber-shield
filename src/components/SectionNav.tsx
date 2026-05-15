@@ -20,7 +20,7 @@ export function SectionNav() {
           const total = sectionQuestions.length;
           const isComplete = answered === total && total > 0;
 
-          const title = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : section.titleHu;
+          const title = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : language === 'en' ? (sectionTitleEn[section.titleHu] || section.titleHu) : section.titleHu;
 
           return (
             <button
