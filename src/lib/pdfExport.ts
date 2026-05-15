@@ -150,18 +150,21 @@ const COMMON_STYLE = (gradient: string) => `
 `;
 
 function buildBlocks(results: AssessmentResult, lang: Language): string[] {
-  const checklist = lang === 'ro' ? evidenceChecklistRo : evidenceChecklist;
+  const checklist = lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : evidenceChecklist;
   const escalationItems = [1, 2, 3, 4, 5, 6, 7].map(n => esc(t(`esc.${n}` as any, lang)));
 
-  const today = new Date().toLocaleDateString(lang === 'ro' ? 'ro-RO' : 'hu-HU');
-  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
-  const dateLabel = lang === 'ro' ? 'Data' : 'Dátum';
-  const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : 'Biztonsági Mutató';
-  const statementLabel = lang === 'ro' ? 'Declarație de risc real' : 'Valós kockázati nyilatkozat';
-  const checklistColLabel = lang === 'ro' ? 'Cerință / Document' : 'Követelmény / Dokumentum';
+  const localeCode = lang === 'ro' ? 'ro-RO' : lang === 'en' ? 'en-US' : 'hu-HU';
+  const today = new Date().toLocaleDateString(localeCode);
+  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
+  const dateLabel = lang === 'ro' ? 'Data' : lang === 'en' ? 'Date' : 'Dátum';
+  const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : lang === 'en' ? 'Security Indicator' : 'Biztonsági Mutató';
+  const statementLabel = lang === 'ro' ? 'Declarație de risc real' : lang === 'en' ? 'Real risk statement' : 'Valós kockázati nyilatkozat';
+  const checklistColLabel = lang === 'ro' ? 'Cerință / Document' : lang === 'en' ? 'Requirement / Document' : 'Követelmény / Dokumentum';
   const checklistDesc =
     lang === 'ro'
       ? 'Documentele și configurațiile de solicitat pentru a urmări procesul de remediere.'
+      : lang === 'en'
+      ? 'Documents and configurations to request for tracking the remediation process.'
       : 'Az audit javítási folyamatának nyomon követéséhez bekérendő dokumentumok és konfigurációk listája.';
 
   const blocks: string[] = [];
