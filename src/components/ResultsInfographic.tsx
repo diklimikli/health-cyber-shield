@@ -72,13 +72,14 @@ export function ResultsInfographic({ results }: Props) {
   const maturityGauge = useMemo(() => {
     const segmentsHu = ['Kritikus', 'Jelentős', 'Mérsékelt', 'Elfogadható', 'Jó'];
     const segmentsRo = ['Critic', 'Semnificativ', 'Moderat', 'Acceptabil', 'Bun'];
-    const segs = language === 'ro' ? segmentsRo : segmentsHu;
+    const segmentsEn = ['Critical', 'Significant', 'Moderate', 'Acceptable', 'Good'];
+    const segs = language === 'ro' ? segmentsRo : language === 'en' ? segmentsEn : segmentsHu;
     const ranges = [25, 25, 20, 15, 15];
     const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#16a34a'];
     return segs.map((name, i) => ({ name, range: ranges[i], color: colors[i], value: ranges[i] }));
   }, [language]);
 
-  const maturityLabel = language === 'ro' ? (maturityLabelRo[results.maturityLevel.label] || results.maturityLevel.label) : results.maturityLevel.label;
+  const maturityLabel = language === 'ro' ? (maturityLabelRo[results.maturityLevel.label] || results.maturityLevel.label) : language === 'en' ? (maturityLabelEn[results.maturityLevel.label] || results.maturityLevel.label) : results.maturityLevel.label;
 
   return (
     <Card>
