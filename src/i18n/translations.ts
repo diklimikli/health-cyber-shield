@@ -116,6 +116,34 @@ const translations = {
   'priority.critical': { hu: 'Kritikus', ro: 'Critic', en: 'Critical' },
   'priority.high': { hu: 'Magas', ro: 'Ridicat', en: 'High' },
   'priority.medium': { hu: 'Közepes', ro: 'Mediu', en: 'Medium' },
+
+  // Audit picker
+  'picker.title': { hu: 'Válassz audit típust', ro: 'Alege tipul de audit', en: 'Choose audit type' },
+  'picker.subtitle': {
+    hu: 'Két szakmai audit-csomag közül választhatsz. Mindkettő ugyanazt a kérdőív-élményt, scoringot és PDF riportot biztosítja.',
+    ro: 'Poți alege dintre două pachete profesionale de audit. Ambele oferă aceeași experiență de chestionar, scoring și raport PDF.',
+    en: 'Choose between two professional audit packages. Both deliver the same questionnaire experience, scoring and PDF report.'
+  },
+  'picker.start': { hu: 'Indítás', ro: 'Pornește', en: 'Start' },
+  'picker.it.title': { hu: 'IT & Cybersecurity Audit', ro: 'Audit IT & Cybersecurity', en: 'IT & Cybersecurity Audit' },
+  'picker.it.desc': {
+    hu: 'NIS2-orientált IT biztonsági értékelés: vendor lock-in, AD/PAM, backup/DR, SOC monitoring, incidenskezelés.',
+    ro: 'Evaluare de securitate IT orientată NIS2: vendor lock-in, AD/PAM, backup/DR, monitorizare SOC, gestionare incidente.',
+    en: 'NIS2-oriented IT security assessment: vendor lock-in, AD/PAM, backup/DR, SOC monitoring, incident response.'
+  },
+  'picker.ai.title': { hu: 'AI / RAG / SOC Readiness Audit', ro: 'Audit AI / RAG / SOC Readiness', en: 'AI / RAG / SOC Readiness Audit' },
+  'picker.ai.desc': {
+    hu: 'Enterprise AI biztonsági audit: GDPR + EU AI Act + SOC-CMM + NIS2 gap analysis RAG és LLM rendszerekre.',
+    ro: 'Audit AI de nivel enterprise: GDPR + EU AI Act + SOC-CMM + NIS2 gap analysis pentru sisteme RAG și LLM.',
+    en: 'Enterprise AI security audit: GDPR + EU AI Act + SOC-CMM + NIS2 gap analysis for RAG and LLM systems.'
+  },
+
+  // AI audit header
+  'ai.app.title': { hu: 'AI / RAG / SOC Readiness Audit', ro: 'Audit AI / RAG / SOC Readiness', en: 'AI / RAG / SOC Readiness Audit' },
+  'ai.app.subtitle': { hu: 'AI Security & SOC Readiness • GDPR • EU AI Act • NIS2', ro: 'AI Security & SOC Readiness • GDPR • EU AI Act • NIS2', en: 'AI Security & SOC Readiness • GDPR • EU AI Act • NIS2' },
+
+  // Audit switch
+  'btn.switchAudit': { hu: 'Audit típus váltása', ro: 'Schimbă tipul de audit', en: 'Switch audit type' },
 } as const;
 
 type TranslationKey = keyof typeof translations;
