@@ -3,7 +3,7 @@ import html2canvas from 'html2canvas';
 import bannerUrl from '@/assets/pdf-header-banner.png';
 import type { AssessmentResult } from './scoringEngine';
 import type { Language } from '@/i18n/LanguageContext';
-import { t } from '@/i18n/translations';
+import { t, type TranslationKey } from '@/i18n/translations';
 import {
   redFlagTitleRo,
   redFlagWhyCriticalRo,
@@ -24,7 +24,14 @@ import {
   evidenceChecklistEn,
   quickWinsEn,
 } from '@/i18n/questionnaireEn';
-import { evidenceChecklist } from '@/data/questionnaireData';
+import { evidenceChecklist as itEvidenceChecklist } from '@/data/questionnaireData';
+
+export interface PdfExportContext {
+  reportTitle?: string;
+  appTitleKey?: string;
+  appSubtitleKey?: string;
+  evidenceChecklist?: string[];
+}
 
 const pickI18n = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string, lang: Language) =>
   lang === 'ro' ? (ro[key] || fb) : lang === 'en' ? (en[key] || fb) : fb;
