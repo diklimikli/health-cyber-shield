@@ -43,7 +43,12 @@ export function ResultsDashboard() {
     if (exporting) return;
     setExporting(true);
     try {
-      await exportResultsPDF(results, language, filename);
+      await exportResultsPDF(results, language, filename, {
+        reportTitle: audit.pdfReportTitle[language],
+        appTitleKey: audit.titleKey,
+        appSubtitleKey: audit.subtitleKey,
+        evidenceChecklist: audit.evidenceChecklist,
+      });
     } finally {
       setExporting(false);
     }
@@ -66,8 +71,8 @@ export function ResultsDashboard() {
     return t('risk.good', language);
   };
 
-  const evChecklist = language === 'ro' ? evidenceChecklistRo : language === 'en' ? evidenceChecklistEn : evidenceChecklist;
-  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : language === 'en' ? 'it_security_assessment.pdf' : 'it_biztonsagi_ertekeles.pdf';
+  const evChecklist = audit.evidenceChecklist;
+  const pdfFilename = audit.pdfFilenames[language];
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
