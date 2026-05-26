@@ -152,7 +152,7 @@ export function ResultsDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {maturityLevels.map(ml => (
+              {audit.maturityLevels.map(ml => (
                 <div key={ml.label} className={cn(
                   'flex items-center gap-3 p-3 rounded-lg border transition-all',
                   results.maturityLevel.label === ml.label ? 'border-primary bg-primary/5' : 'border-transparent'
