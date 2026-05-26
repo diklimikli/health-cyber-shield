@@ -3,7 +3,7 @@ import html2canvas from 'html2canvas';
 import bannerUrl from '@/assets/pdf-header-banner.png';
 import type { AssessmentResult } from './scoringEngine';
 import type { Language } from '@/i18n/LanguageContext';
-import { t } from '@/i18n/translations';
+import { t, type TranslationKey } from '@/i18n/translations';
 import {
   redFlagTitleRo,
   redFlagWhyCriticalRo,
@@ -24,7 +24,14 @@ import {
   evidenceChecklistEn,
   quickWinsEn,
 } from '@/i18n/questionnaireEn';
-import { evidenceChecklist } from '@/data/questionnaireData';
+import { evidenceChecklist as itEvidenceChecklist } from '@/data/questionnaireData';
+
+export interface PdfExportContext {
+  reportTitle?: string;
+  appTitleKey?: string;
+  appSubtitleKey?: string;
+  evidenceChecklist?: string[];
+}
 
 const pickI18n = (ro: Record<string, string>, en: Record<string, string>, key: string, fb: string, lang: Language) =>
   lang === 'ro' ? (ro[key] || fb) : lang === 'en' ? (en[key] || fb) : fb;
@@ -149,13 +156,19 @@ const COMMON_STYLE = (gradient: string) => `
   .pdf-block table.checklist td:first-child{width:28px;text-align:center;font-size:15px;color:#94a3b8;}
 `;
 
-function buildBlocks(results: AssessmentResult, lang: Language): string[] {
-  const checklist = lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : evidenceChecklist;
+function buildBlocks(results: AssessmentResult, lang: Language, ctx: PdfExportContext): string[] {
+  // For AI audit (or any custom audit) — use provided checklist directly without language remap (it's already authored in HU/source language).
+  const useCustomChecklist = !!ctx.evidenceChecklist && ctx.evidenceChecklist !== itEvidenceChecklist;
+  const checklist = useCustomChecklist
+    ? (ctx.evidenceChecklist as string[])
+    : (lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : itEvidenceChecklist);
   const escalationItems = [1, 2, 3, 4, 5, 6, 7].map(n => esc(t(`esc.${n}` as any, lang)));
 
   const localeCode = lang === 'ro' ? 'ro-RO' : lang === 'en' ? 'en-US' : 'hu-HU';
   const today = new Date().toLocaleDateString(localeCode);
-  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
+  const titleText = ctx.reportTitle ?? (lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS');
+  const appTitle = ctx.appTitleKey ? t(ctx.appTitleKey as TranslationKey, lang) : t('app.title', lang);
+  const appSubtitle = ctx.appSubtitleKey ? t(ctx.appSubtitleKey as TranslationKey, lang) : t('app.subtitle', lang);
   const dateLabel = lang === 'ro' ? 'Data' : lang === 'en' ? 'Date' : 'Dátum';
   const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : lang === 'en' ? 'Security Indicator' : 'Biztonsági Mutató';
   const statementLabel = lang === 'ro' ? 'Declarație de risc real' : lang === 'en' ? 'Real risk statement' : 'Valós kockázati nyilatkozat';
@@ -173,7 +186,7 @@ function buildBlocks(results: AssessmentResult, lang: Language): string[] {
   blocks.push(`
     <h1>${esc(titleText)}</h1>
     <div class="meta">
-      <div><p><strong>${esc(t('app.title', lang))}</strong></p><p style="color:#64748b;">${esc(t('app.subtitle', lang))}</p></div>
+      <div><p><strong>${esc(appTitle)}</strong></p><p style="color:#64748b;">${esc(appSubtitle)}</p></div>
       <div style="text-align:right;"><p><strong>${esc(dateLabel)}:</strong> ${esc(today)}</p></div>
     </div>
   `);
@@ -279,11 +292,12 @@ const BLOCK_GAP_MM = 4;
 export async function exportResultsPDF(
   results: AssessmentResult,
   language: Language,
-  filename: string
+  filename: string,
+  ctx: PdfExportContext = {}
 ) {
   const banner = await loadBanner();
   const gradient = maturityGradient(results.maturityLevel.color);
-  const blocks = buildBlocks(results, language);
+  const blocks = buildBlocks(results, language, ctx);
 
   // Offscreen host with shared style
   const host = document.createElement('div');

@@ -1,26 +1,30 @@
-import { sections } from '@/data/questionnaireData';
 import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { sectionTitleRo } from '@/i18n/questionnaireRo';
 import { sectionTitleEn } from '@/i18n/questionnaireEn';
 import { cn } from '@/lib/utils';
 import { CheckCircle, Circle } from 'lucide-react';
-import { questions } from '@/data/questionnaireData';
+import { useActiveAudit } from '@/hooks/useActiveAudit';
 
 export function SectionNav() {
   const { currentSection, setCurrentSection, answers } = useQuestionnaire();
   const { language } = useLanguage();
+  const audit = useActiveAudit();
 
   return (
     <nav className="w-full overflow-x-auto">
       <div className="flex gap-1 p-1 bg-secondary rounded-lg min-w-max">
-        {sections.map((section, idx) => {
-          const sectionQuestions = questions.filter(q => q.sectionId === section.id);
+        {audit.sections.map((section, idx) => {
+          const sectionQuestions = audit.questions.filter(q => q.sectionId === section.id);
           const answered = sectionQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '').length;
           const total = sectionQuestions.length;
           const isComplete = answered === total && total > 0;
 
-          const title = language === 'ro' ? (sectionTitleRo[section.titleHu] || section.titleHu) : language === 'en' ? (sectionTitleEn[section.titleHu] || section.titleHu) : section.titleHu;
+          const title = language === 'ro'
+            ? (sectionTitleRo[section.titleHu] || section.titleHu)
+            : language === 'en'
+            ? (sectionTitleEn[section.titleHu] || section.titleHu)
+            : section.titleHu;
 
           return (
             <button
@@ -38,7 +42,7 @@ export function SectionNav() {
               ) : (
                 <Circle className="w-3.5 h-3.5 flex-shrink-0" />
               )}
-              <span>{idx + 1}. {title.split(' /')[0].split(' și')[0].split(' és')[0].substring(0, 20)}</span>
+              <span>{idx + 1}. {title.split(' /')[0].split(' și')[0].split(' és')[0].substring(0, 22)}</span>
               <span className="text-[10px] opacity-60">{answered}/{total}</span>
             </button>
           );

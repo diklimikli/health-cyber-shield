@@ -2,10 +2,9 @@ import { useMemo, useRef, useState } from 'react';
 import { useQuestionnaire } from '@/contexts/QuestionnaireContext';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { t } from '@/i18n/translations';
-import { redFlagTitleRo, redFlagWhyCriticalRo, redFlagConsequencesRo, redFlagImmediateActionRo, maturityLabelRo, maturityDescRo, domainLabelRo, evidenceChecklistRo, quickWinsRo } from '@/i18n/questionnaireRo';
-import { redFlagTitleEn, redFlagWhyCriticalEn, redFlagConsequencesEn, redFlagImmediateActionEn, maturityLabelEn, maturityDescEn, domainLabelEn, evidenceChecklistEn, quickWinsEn } from '@/i18n/questionnaireEn';
+import { redFlagTitleRo, redFlagWhyCriticalRo, redFlagConsequencesRo, redFlagImmediateActionRo, maturityLabelRo, maturityDescRo, domainLabelRo, quickWinsRo } from '@/i18n/questionnaireRo';
+import { redFlagTitleEn, redFlagWhyCriticalEn, redFlagConsequencesEn, redFlagImmediateActionEn, maturityLabelEn, maturityDescEn, domainLabelEn, quickWinsEn } from '@/i18n/questionnaireEn';
 import { calculateResults } from '@/lib/scoringEngine';
-import { scoringWeights, maturityLevels, redFlags, evidenceChecklist, questions } from '@/data/questionnaireData';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -14,14 +13,23 @@ import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { cn } from '@/lib/utils';
 import { exportResultsPDF } from '@/lib/pdfExport';
+import { useActiveAudit } from '@/hooks/useActiveAudit';
 
 
 export function ResultsDashboard() {
   const { answers, setIsComplete } = useQuestionnaire();
   const { language } = useLanguage();
-  const results = useMemo(() => calculateResults(answers), [answers]);
+  const audit = useActiveAudit();
+  const results = useMemo(() => calculateResults(answers, {
+    questions: audit.questions,
+    scoringWeights: audit.scoringWeights,
+    maturityLevels: audit.maturityLevels,
+    redFlags: audit.redFlags,
+    quickWinsBuilder: audit.quickWinsBuilder,
+  }), [answers, audit]);
   const contentRef = useRef<HTMLDivElement>(null);
   const [exporting, setExporting] = useState(false);
+
 
   const maturityColorClass: Record<string, string> = {
     critical: 'score-critical',
@@ -35,7 +43,12 @@ export function ResultsDashboard() {
     if (exporting) return;
     setExporting(true);
     try {
-      await exportResultsPDF(results, language, filename);
+      await exportResultsPDF(results, language, filename, {
+        reportTitle: audit.pdfReportTitle[language],
+        appTitleKey: audit.titleKey,
+        appSubtitleKey: audit.subtitleKey,
+        evidenceChecklist: audit.evidenceChecklist,
+      });
     } finally {
       setExporting(false);
     }
@@ -58,8 +71,8 @@ export function ResultsDashboard() {
     return t('risk.good', language);
   };
 
-  const evChecklist = language === 'ro' ? evidenceChecklistRo : language === 'en' ? evidenceChecklistEn : evidenceChecklist;
-  const pdfFilename = language === 'ro' ? 'evaluare_securitate_it.pdf' : language === 'en' ? 'it_security_assessment.pdf' : 'it_biztonsagi_ertekeles.pdf';
+  const evChecklist = audit.evidenceChecklist;
+  const pdfFilename = audit.pdfFilenames[language];
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -139,7 +152,7 @@ export function ResultsDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {maturityLevels.map(ml => (
+              {audit.maturityLevels.map(ml => (
                 <div key={ml.label} className={cn(
                   'flex items-center gap-3 p-3 rounded-lg border transition-all',
                   results.maturityLevel.label === ml.label ? 'border-primary bg-primary/5' : 'border-transparent'
