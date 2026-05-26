@@ -186,7 +186,7 @@ function buildBlocks(results: AssessmentResult, lang: Language, ctx: PdfExportCo
   blocks.push(`
     <h1>${esc(titleText)}</h1>
     <div class="meta">
-      <div><p><strong>${esc(t('app.title', lang))}</strong></p><p style="color:#64748b;">${esc(t('app.subtitle', lang))}</p></div>
+      <div><p><strong>${esc(appTitle)}</strong></p><p style="color:#64748b;">${esc(appSubtitle)}</p></div>
       <div style="text-align:right;"><p><strong>${esc(dateLabel)}:</strong> ${esc(today)}</p></div>
     </div>
   `);
@@ -292,11 +292,12 @@ const BLOCK_GAP_MM = 4;
 export async function exportResultsPDF(
   results: AssessmentResult,
   language: Language,
-  filename: string
+  filename: string,
+  ctx: PdfExportContext = {}
 ) {
   const banner = await loadBanner();
   const gradient = maturityGradient(results.maturityLevel.color);
-  const blocks = buildBlocks(results, language);
+  const blocks = buildBlocks(results, language, ctx);
 
   // Offscreen host with shared style
   const host = document.createElement('div');
