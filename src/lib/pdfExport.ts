@@ -156,13 +156,19 @@ const COMMON_STYLE = (gradient: string) => `
   .pdf-block table.checklist td:first-child{width:28px;text-align:center;font-size:15px;color:#94a3b8;}
 `;
 
-function buildBlocks(results: AssessmentResult, lang: Language): string[] {
-  const checklist = lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : evidenceChecklist;
+function buildBlocks(results: AssessmentResult, lang: Language, ctx: PdfExportContext): string[] {
+  // For AI audit (or any custom audit) — use provided checklist directly without language remap (it's already authored in HU/source language).
+  const useCustomChecklist = !!ctx.evidenceChecklist && ctx.evidenceChecklist !== itEvidenceChecklist;
+  const checklist = useCustomChecklist
+    ? (ctx.evidenceChecklist as string[])
+    : (lang === 'ro' ? evidenceChecklistRo : lang === 'en' ? evidenceChecklistEn : itEvidenceChecklist);
   const escalationItems = [1, 2, 3, 4, 5, 6, 7].map(n => esc(t(`esc.${n}` as any, lang)));
 
   const localeCode = lang === 'ro' ? 'ro-RO' : lang === 'en' ? 'en-US' : 'hu-HU';
   const today = new Date().toLocaleDateString(localeCode);
-  const titleText = lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS';
+  const titleText = ctx.reportTitle ?? (lang === 'ro' ? 'RAPORT AUDIT SECURITATE IT' : lang === 'en' ? 'IT SECURITY AUDIT REPORT' : 'IT BIZTONSÁGI AUDIT JELENTÉS');
+  const appTitle = ctx.appTitleKey ? t(ctx.appTitleKey as TranslationKey, lang) : t('app.title', lang);
+  const appSubtitle = ctx.appSubtitleKey ? t(ctx.appSubtitleKey as TranslationKey, lang) : t('app.subtitle', lang);
   const dateLabel = lang === 'ro' ? 'Data' : lang === 'en' ? 'Date' : 'Dátum';
   const scoreLabel = lang === 'ro' ? 'Indicator de Securitate' : lang === 'en' ? 'Security Indicator' : 'Biztonsági Mutató';
   const statementLabel = lang === 'ro' ? 'Declarație de risc real' : lang === 'en' ? 'Real risk statement' : 'Valós kockázati nyilatkozat';
