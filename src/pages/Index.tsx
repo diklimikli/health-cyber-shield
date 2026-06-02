@@ -77,8 +77,14 @@ function QuestionnaireContent() {
               <FileText className="w-3 h-3 inline mr-1" />{t('mode.detailed', language)}
             </button>
           </div>
-          <Button onClick={() => setIsComplete(true)} className="gap-1.5">
+          <Button onClick={() => setIsComplete(true)} variant="outline" className="gap-1.5">
             <BarChart3 className="w-4 h-4" /> {t('btn.results', language)}
+          </Button>
+          <Button
+            onClick={() => setShowExecutive(true)}
+            className="gap-1.5 bg-gradient-to-r from-primary to-fuchsia-600 hover:opacity-90 text-primary-foreground shadow-md"
+          >
+            <Briefcase className="w-4 h-4" /> Vezetői jelentés
           </Button>
         </div>
       </div>
