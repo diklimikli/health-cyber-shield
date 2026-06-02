@@ -8,20 +8,22 @@ import { SectionNav } from '@/components/SectionNav';
 import { QuestionCard } from '@/components/QuestionCard';
 import { ResultsDashboard } from '@/components/ResultsDashboard';
 import { AuditPicker } from '@/components/AuditPicker';
+import { ExecutiveSummary } from '@/components/ExecutiveSummary';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Shield, Brain, ChevronLeft, ChevronRight, BarChart3, FileText, Zap, LayoutGrid } from 'lucide-react';
+import { Shield, Brain, ChevronLeft, ChevronRight, BarChart3, FileText, Zap, LayoutGrid, Briefcase } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useActiveAudit } from '@/hooks/useActiveAudit';
 
 function QuestionnaireContent() {
-  const { currentSection, setCurrentSection, mode, setMode, answers, isComplete, setIsComplete, auditType, resetAudit } = useQuestionnaire();
+  const { currentSection, setCurrentSection, mode, setMode, answers, isComplete, setIsComplete, auditType, resetAudit, showExecutive, setShowExecutive } = useQuestionnaire();
   const { language } = useLanguage();
   const audit = useActiveAudit();
 
   if (!auditType) return <AuditPicker />;
+  if (showExecutive) return <ExecutiveSummary />;
   if (isComplete) return <ResultsDashboard />;
 
   const sections = audit.sections;
@@ -75,8 +77,14 @@ function QuestionnaireContent() {
               <FileText className="w-3 h-3 inline mr-1" />{t('mode.detailed', language)}
             </button>
           </div>
-          <Button onClick={() => setIsComplete(true)} className="gap-1.5">
+          <Button onClick={() => setIsComplete(true)} variant="outline" className="gap-1.5">
             <BarChart3 className="w-4 h-4" /> {t('btn.results', language)}
+          </Button>
+          <Button
+            onClick={() => setShowExecutive(true)}
+            className="gap-1.5 bg-gradient-to-r from-primary to-fuchsia-600 hover:opacity-90 text-primary-foreground shadow-md"
+          >
+            <Briefcase className="w-4 h-4" /> Vezetői jelentés
           </Button>
         </div>
       </div>

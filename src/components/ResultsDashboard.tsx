@@ -8,7 +8,7 @@ import { calculateResults } from '@/lib/scoringEngine';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock, Download, Loader2 } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Shield, TrendingDown, Zap, FileText, ArrowLeft, Target, Clock, Download, Loader2, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { cn } from '@/lib/utils';
@@ -17,7 +17,7 @@ import { useActiveAudit } from '@/hooks/useActiveAudit';
 
 
 export function ResultsDashboard() {
-  const { answers, setIsComplete } = useQuestionnaire();
+  const { answers, setIsComplete, setShowExecutive } = useQuestionnaire();
   const { language } = useLanguage();
   const audit = useActiveAudit();
   const results = useMemo(() => calculateResults(answers, {
@@ -82,6 +82,12 @@ export function ResultsDashboard() {
           <LanguageSwitcher />
           <Button variant="outline" onClick={() => setIsComplete(false)}>
             <ArrowLeft className="w-4 h-4 mr-2" /> {t('btn.back', language)}
+          </Button>
+          <Button
+            onClick={() => setShowExecutive(true)}
+            className="bg-gradient-to-r from-primary to-fuchsia-600 hover:opacity-90 text-primary-foreground shadow-md"
+          >
+            <Briefcase className="w-4 h-4 mr-2" /> Vezetői jelentés generálása
           </Button>
           <Button variant="default" onClick={() => handleExport(pdfFilename)} disabled={exporting}>
             {exporting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}

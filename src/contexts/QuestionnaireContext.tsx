@@ -13,6 +13,8 @@ interface QuestionnaireContextType {
   setIsComplete: (v: boolean) => void;
   auditType: AuditId | null;
   setAuditType: (a: AuditId | null) => void;
+  showExecutive: boolean;
+  setShowExecutive: (v: boolean) => void;
   resetAudit: () => void;
 }
 
@@ -24,6 +26,7 @@ export function QuestionnaireProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<'executive' | 'detailed'>('detailed');
   const [isComplete, setIsComplete] = useState(false);
   const [auditType, setAuditType] = useState<AuditId | null>(null);
+  const [showExecutive, setShowExecutive] = useState(false);
 
   const setAnswer = (questionId: string, value: AnswerValue) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
@@ -34,12 +37,14 @@ export function QuestionnaireProvider({ children }: { children: ReactNode }) {
     setCurrentSection(0);
     setIsComplete(false);
     setAuditType(null);
+    setShowExecutive(false);
   };
 
   return (
     <QuestionnaireContext.Provider value={{
       answers, setAnswer, currentSection, setCurrentSection, mode, setMode,
-      isComplete, setIsComplete, auditType, setAuditType, resetAudit,
+      isComplete, setIsComplete, auditType, setAuditType,
+      showExecutive, setShowExecutive, resetAudit,
     }}>
       {children}
     </QuestionnaireContext.Provider>
