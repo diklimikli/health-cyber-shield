@@ -8,20 +8,22 @@ import { SectionNav } from '@/components/SectionNav';
 import { QuestionCard } from '@/components/QuestionCard';
 import { ResultsDashboard } from '@/components/ResultsDashboard';
 import { AuditPicker } from '@/components/AuditPicker';
+import { ExecutiveSummary } from '@/components/ExecutiveSummary';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Shield, Brain, ChevronLeft, ChevronRight, BarChart3, FileText, Zap, LayoutGrid } from 'lucide-react';
+import { Shield, Brain, ChevronLeft, ChevronRight, BarChart3, FileText, Zap, LayoutGrid, Briefcase } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useActiveAudit } from '@/hooks/useActiveAudit';
 
 function QuestionnaireContent() {
-  const { currentSection, setCurrentSection, mode, setMode, answers, isComplete, setIsComplete, auditType, resetAudit } = useQuestionnaire();
+  const { currentSection, setCurrentSection, mode, setMode, answers, isComplete, setIsComplete, auditType, resetAudit, showExecutive, setShowExecutive } = useQuestionnaire();
   const { language } = useLanguage();
   const audit = useActiveAudit();
 
   if (!auditType) return <AuditPicker />;
+  if (showExecutive) return <ExecutiveSummary />;
   if (isComplete) return <ResultsDashboard />;
 
   const sections = audit.sections;
